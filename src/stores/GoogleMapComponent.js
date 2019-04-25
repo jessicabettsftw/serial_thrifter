@@ -4,7 +4,6 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 const mapStyles = {
   width: '50%',
   height: '50%',
-  color: 'pink'
 };
 
 export class MapContainer extends Component {
@@ -16,11 +15,18 @@ export class MapContainer extends Component {
       centerPoint: {lat: 47.49855629475769, lng: -122.14184416996333},
       clickedStore: {}
     }
-    this.getStores()
+    this.getStores("black diamond washington")
   }
 
-  getStores = () => {
-    let url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&latitude=47.3733&longitude=-122.0369&limit=30&radius=20000"
+  getStores = (location) => {
+    let url = ""
+    if ((typeof location) === "string") {
+      url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&location=${location}&limit=30&radius=20000`
+    } else {
+      url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&longitude=${location.lng}&latitude=${location.lat}&limit=30&radius=20000`
+
+    }
+
     fetch(url, {
       'headers': {
         'Authorization': "Bearer GeTWZrzUC-yLbRt8--5cYSypgjILaAFpYIMpC6xpgXMxwk86EQcmhzo51ZJPpBzEwdFBFYd_hXZwTIU4hwyzDqI9bcPyhyw9iBnXwwlSlJ2nSJBElOpVDhsXEP69XHYx"
@@ -43,7 +49,6 @@ export class MapContainer extends Component {
       })
       let avgLat = latitude / data.businesses.length
       let avgLong = longitude / data.businesses.length
-      console.log({lat: avgLat, lng: avgLong})
       return {lat: avgLat, lng: avgLong}
   }
 
@@ -53,9 +58,22 @@ export class MapContainer extends Component {
     this.setState({clickedStore: this.state.stores[obj.id]})
   }
 
+  getLocation = () => {
+    console.log("getting location")
+    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCLTnIgnmTHVA87V0pTg7n2N2Y6HZxE7hA"
+    fetch(url, {
+      method: 'POST'
+    })
+    .then(result => result.json())
+    .then(data =>{
+      console.log(data.location)
+      this.getStores(data.location)
+    })
+  }
+
   displayMarkers = () => {
     return this.state.stores.map((store, index) => {
-      return <Marker id={index} position={{
+      return <Marker key={index} id={index} position={{
        lat: store.coordinates.latitude,
        lng: store.coordinates.longitude
      }}
@@ -65,20 +83,26 @@ export class MapContainer extends Component {
 
   handleSubmit = (ev) => {
     ev.preventDefault()
-    console.log("filter me")
+    if (ev.target.elements['myLocation'].checked === true){
+      this.getLocation()
+    } else {
+      this.getStores(ev.target.elements['cityInput'].value)
+    }
   }
 
   render() {
     return (
       <div>
-
-        <div>
+        <div className="filter">
           <form onSubmit={(ev) => this.handleSubmit(ev)}>
-            <input type="text" />
+            <label>City & State: </label>
+            <input name="cityInput" type="text" />
+            <label>My Location:</label>
+            <input type="checkbox" name="myLocation"/>
             <input type="submit" />
           </form>
         </div>
-        <div id="info">
+        <div className="side">
           <p>
             Name: {this.state.clickedStore.name}
           </p>
@@ -90,14 +114,16 @@ export class MapContainer extends Component {
           </p>
 
         </div>
-        <Map
-          google={this.props.google}
-          zoom={8}
-          style={mapStyles}
-          initialCenter={this.state.centerPoint}
-        >
-        {this.displayMarkers()}
-        </Map>
+        <div className="main map">
+          <Map
+            google={this.props.google}
+            zoom={8}
+            style={mapStyles}
+            initialCenter={this.state.centerPoint}
+          >
+          {this.displayMarkers()}
+          </Map>
+        </div>
       </div>
     );
   }
