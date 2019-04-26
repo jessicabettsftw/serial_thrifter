@@ -53,9 +53,8 @@ export class MapContainer extends Component {
   }
 
   getStoreInfo = (obj) => {
-    // console.log(this.state)
-    // console.log(this.state.stores[obj.id])
-    this.setState({clickedStore: this.state.stores[obj.id]})
+    console.log(this.state.stores[obj])
+    this.setState({clickedStore: this.state.stores[obj]})
   }
 
   getLocation = () => {
@@ -77,7 +76,13 @@ export class MapContainer extends Component {
        lat: store.coordinates.latitude,
        lng: store.coordinates.longitude
      }}
-     onClick={(obj) => this.getStoreInfo(obj)} />
+     onClick={(obj) => this.getStoreInfo(obj.id)} />
+    })
+  }
+
+  displayStores = () => {
+    return this.state.stores.map((store, index) => {
+      return <li >{store.name}</li>
     })
   }
 
@@ -90,36 +95,47 @@ export class MapContainer extends Component {
     }
   }
 
+  clearForm = (ev) => {
+    if (ev.target.checked){
+      document.getElementsByName('cityInput')[0].value = ""
+    }
+  }
+
   render() {
     return (
       <div>
-        <div className="filter">
+        <div className="hero">
           <form onSubmit={(ev) => this.handleSubmit(ev)}>
             <label>City & State: </label>
             <input name="cityInput" type="text" />
             <label>My Location:</label>
-            <input type="checkbox" name="myLocation"/>
+            <input type="checkbox" name="myLocation" onChange={(ev) => this.clearForm(ev)}/>
             <input type="submit" />
           </form>
         </div>
-        <div className="side">
-          <p>
-            Name: {this.state.clickedStore.name}
-          </p>
-          <p>
-            Phone: {this.state.clickedStore.display_phone}
-          </p>
-          <p>
-            Rating: {this.state.clickedStore.rating}
-          </p>
+        <div>
+          <div >
+            <p>
+              Name: {this.state.clickedStore.name}
+            </p>
+            <p>
+              Phone: {this.state.clickedStore.display_phone}
+            </p>
+            <p>
+              Rating: {this.state.clickedStore.rating}
+            </p>
 
-        </div>
-        <div className="main map">
+          </div>
+          <div>
+            <ul>
+              {this.displayStores()}
+            </ul>
+          </div>
           <Map
             google={this.props.google}
-            zoom={8}
+            zoom={9}
             style={mapStyles}
-            initialCenter={this.state.centerPoint}
+            center={this.state.centerPoint}
           >
           {this.displayMarkers()}
           </Map>

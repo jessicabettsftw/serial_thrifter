@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Special+Elite');
 
 .header {
+  display: flex;
   grid-area: header;
   padding: 10px;
-  text-align: center;
+  justify-content: center;
   background: #A4DCED;
   color: white;
   width: 100%;

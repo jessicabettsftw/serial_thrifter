@@ -1,10 +1,15 @@
-@import './css/header.css';
-@import './css/map.css';
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
 
-body {
-  grid-template-areas:
-  "header header header header header"
-  ".... filter filter filter ...."
-  ". main main side . "
-  "footer footer footer footer footer"
+.header {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  background: #A4DCED;
+  color: white;
+  width: 100%;
+}
+
+.title {
+  font-size: 40px;
+  font-family: 'Special Elite', cursive;
 }
