@@ -9,13 +9,22 @@ class Finds extends Component {
 
     this.state = {
       finds: [],
-      filteredFinds: []
+      filteredFinds: [],
+      userLocation: {}
     }
 
   }
 
   componentDidMount(){
     this.get_finds()
+  }
+
+  getLocation = () => {
+    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCLTnIgnmTHVA87V0pTg7n2N2Y6HZxE7hA"
+    return fetch(url, {
+      method: 'POST'
+    })
+    .then(result => result.json())
   }
 
   get_finds = () => {
@@ -66,6 +75,21 @@ class Finds extends Component {
     return finds
   }
 
+  getDistance = () => {
+    let url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&mode=bicycling&key=AIzaSyDIfPwIi6IVmHH8WNpQE0q9iLpY1XaB4m0"
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    })
+  }
+
+  locationFilter = (finds) => {
+    this.getLocation().then(data => console.log(data.location))
+    this.getDistance()
+    return finds
+  }
+
   filterFinds = (ev) => {
     ev.preventDefault()
 
@@ -75,6 +99,7 @@ class Finds extends Component {
 
     let brand_filtered = this.brandFilter(this.state.finds, brand)
     let price_filtered = this.priceFilter(brand_filtered, price)
+    let location_filtered = this.locationFilter(price_filtered)
 
 
     this.setState({filteredFinds: price_filtered})

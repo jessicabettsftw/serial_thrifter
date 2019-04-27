@@ -58,7 +58,6 @@ export class MapContainer extends Component {
   }
 
   getLocation = () => {
-    console.log("getting location")
     let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCLTnIgnmTHVA87V0pTg7n2N2Y6HZxE7hA"
     fetch(url, {
       method: 'POST'
