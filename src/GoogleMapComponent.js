@@ -104,7 +104,7 @@ export class MapContainer extends Component {
   render() {
     return (
       <div>
-        <div className="hero">
+        <div>
           <form onSubmit={(ev) => this.handleSubmit(ev)}>
             <label>City & State: </label>
             <input name="cityInput" type="text" />
@@ -131,14 +131,17 @@ export class MapContainer extends Component {
               {this.displayStores()}
             </ul>
           </div>
-          <Map
-            google={this.props.google}
-            zoom={9}
-            style={mapStyles}
-            center={this.state.centerPoint}
-          >
-          {this.displayMarkers()}
-          </Map>
+          <div>
+            <Map
+              google={this.props.google}
+              zoom={9}
+              style={mapStyles}
+              center={this.state.centerPoint}
+            >
+            {this.displayMarkers()}
+            </Map>
+          </div>
+
         </div>
       </div>
     );
