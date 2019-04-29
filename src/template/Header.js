@@ -1,17 +1,21 @@
 import React from "react";
-import { Navbar, NavLink, NavItem } from "reactstrap";
 
 const Header = props => {
   return (
-    <Navbar color="light" light expand="md" className="header">
-      <h1 className="title">serial thrifter</h1>
-        <NavItem>
-          <NavLink href="/finds">Finds</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/find_stores">Stores near me</NavLink>
-        </NavItem>
-    </Navbar>
+    <div className="header">
+      <h1 class="title" href="#">serial thrifter</h1>
+      <nav class="navbar navbar-expand-lg">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav links">
+            <a class="nav-item nav-link" href="/">Home</a>
+            <a class="nav-item nav-link" href="/finds">Finds</a>
+            <a class="nav-item nav-link" href="/stores">Stores</a>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+
   );
 };
 

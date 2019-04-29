@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const mapStyles = {
-  width: '50%',
-  height: '50%',
+  'width': '400px',
+  'height': '400px'
 };
 
 export class MapContainer extends Component {
@@ -103,17 +103,26 @@ export class MapContainer extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div className="row justify-content-center map-filters">
           <form onSubmit={(ev) => this.handleSubmit(ev)}>
-            <label>City & State: </label>
-            <input name="cityInput" type="text" />
-            <label>My Location:</label>
-            <input type="checkbox" name="myLocation" onChange={(ev) => this.clearForm(ev)}/>
-            <input type="submit" />
+            <div className="form-row">
+              <div className="col-5">
+                <input type="text" className="form-control" name="cityInput" placeholder="City & State:"/>
+              </div>
+              <div className="col form-check-inline">
+                <input className="form-check-input" name="myLocation" type="checkbox" onChange={(ev) => this.clearForm(ev)} value="" id="defaultCheck1" />
+                <label className="form-check-label text-secondary" for="myLocation">
+                  My Location
+                </label>
+              </div>
+              <div className="col">
+                 <button type="submit" className="btn btn-primary button">Submit</button>
+              </div>
+            </div>
           </form>
         </div>
-        <div>
-          <div >
+        <div className="row justify-content-center">
+          <div className="col-2">
             <p>
               Name: {this.state.clickedStore.name}
             </p>
@@ -123,25 +132,22 @@ export class MapContainer extends Component {
             <p>
               Rating: {this.state.clickedStore.rating}
             </p>
-
           </div>
-          <div>
-            <ul>
+          <div className="col-2">
+            <ul className="stores-list">
               {this.displayStores()}
             </ul>
           </div>
-          <div>
-            <Map
-              google={this.props.google}
-              zoom={9}
-              style={mapStyles}
-              center={this.state.centerPoint}
-            >
-            {this.displayMarkers()}
-            </Map>
-          </div>
-
         </div>
+
+        <Map
+          google={this.props.google}
+          zoom={9}
+          style={mapStyles}
+          center={this.state.centerPoint}
+        >
+        {this.displayMarkers()}
+        </Map>
       </div>
     );
   }

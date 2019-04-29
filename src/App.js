@@ -32,7 +32,7 @@ class App extends Component {
           <Header />
           <Router>
             <Switch>
-              <Route path="/find_stores" component={() => <GoogleMap />}/>
+              <Route path="/stores" component={() => <GoogleMap />}/>
               <Route path="/finds" component={() => <Finds user={this.state.user} likes={this.state.likes}/>}/>
             </Switch>
           </Router>

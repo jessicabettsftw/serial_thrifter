@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import FindPoloroid from "./FindPoloroid"
-import "./css/findpoloroid.css";
-
 
 class Finds extends Component {
   constructor(props){
@@ -109,25 +107,35 @@ class Finds extends Component {
   render (){
     return (
       <div>
-        <div className="side">
-          <form onSubmit={(ev) => this.filterFinds(ev)}>
-            <label>Brand:</label>
-            <input name="brand" type="text"/>
-            <label>Near Me:</label>
-            <input name="nearMe" type="checkbox"/>
-            <label>Less Than: </label>
-            <select name="price">
-              <option value=""></option>
-              <option value="100">$100</option>
-              <option value="50">$50</option>
-              <option value="25">$25</option>
-              <option value="15">$15</option>
-              <option value="5">$5</option>
-            </select>
-              <input type="submit" />
+        <div className="">
+          <form onSubmit={(ev) => this.filterFinds(ev)} className="finds-filters">
+            <div className="form-row justify-content-center">
+              <div className="col-2 form-check-inline">
+                <input className="form-check-input" name="myLocation" type="checkbox" value="" id="defaultCheck1" />
+                <label className="form-check-label text-secondary" for="myLocation">
+                  My Location
+                </label>
+              </div>
+              <div className="col">
+                <input type="text" className="form-control" name="brandInput" placeholder="Brand:"/>
+              </div>
+              <div className="col">
+                  <select name="priceInput" className="form-control text-secondary">
+                    <option value="">Less Than:</option>
+                    <option value="100">$100</option>
+                    <option value="50">$50</option>
+                    <option value="25">$25</option>
+                    <option value="15">$15</option>
+                    <option value="5">$5</option>
+                  </select>
+              </div>
+              <div className="col">
+                 <button type="submit" className="btn btn-primary button">Submit</button>
+              </div>
+            </div>
           </form>
         </div>
-        <div className="main">
+        <div className="row justify-content-center flex main-content">
             {this.displayFinds()}
         </div>
       </div>

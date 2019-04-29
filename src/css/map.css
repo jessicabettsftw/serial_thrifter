@@ -1,0 +1,16 @@
+.map-filters {
+  margin: 30px;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+}
+
+.stores-list {
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+  list-style: none;
+}
+
+li:hover {
+  text-decoration: underline;
+  text-decoration-color: #FFDB82;
+}

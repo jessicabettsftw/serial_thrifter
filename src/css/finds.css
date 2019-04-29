@@ -1,0 +1,30 @@
+.small-poloroid {
+  width: 160px;
+  height: 200px;
+  background-color: white;
+  justify-content: center;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 2%;
+}
+
+.small-poloroid-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 140px;
+  margin-top: 5%;
+}
+
+.finds-filters {
+  margin: 30px;
+  justify-content: center;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+}
+
+.main-content {
+  padding-left: 10%;
+  padding-right: 10%;
+}

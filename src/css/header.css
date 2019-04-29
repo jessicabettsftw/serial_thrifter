@@ -2,10 +2,9 @@
 
 .header {
   display: flex;
-  grid-area: header;
   padding: 10px;
   justify-content: center;
-  background: #A4DCED;
+  background: #FFDB82;
   color: white;
   width: 100%;
 }
@@ -13,4 +12,16 @@
 .title {
   font-size: 40px;
   font-family: 'Special Elite', cursive;
+}
+.nav-item {
+  color: white;
+  font-family: 'Special Elite', cursive;
+}
+
+.nav-item:hover {
+  color: #e89d76;
+}
+
+.nav-link:active {
+  color: #e89d76;
 }
