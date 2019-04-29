@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import GoogleMap from "./GoogleMapComponent";
 import Finds from "./Finds"
+import Find from "./Find"
 import Header from "./template/Header"
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
       user: {id: 1, username: "jekka", name: "jessica",
         password: "cats", email: "jessiaannbettsis@gmail.com",
         zip: 98010, bio: null, image:null},
-      likes: []
+      likes: [],
+      selectedFind: 0
     }
     this.getLikes()
   }
@@ -22,8 +24,27 @@ class App extends Component {
     fetch(url)
     .then(res => res.json())
     .then(data => {
-      this.setState({likes: data.map(like => like.find_id)})
+      this.setState({likes: data.likes})
     })
+  }
+
+  addLike = (like) => {
+    console.log("doing it")
+    this.setState((prevState) => ({
+      likes: [like, ... prevState.likes]
+    }))
+  }
+
+  removeLike = (findId) => {
+    this.setState((prevState) => ({
+      likes: prevState.likes.filter(function(thisLike) {
+      return thisLike.find_id !== findId
+    })}))
+  }
+
+  selectFind = (findId) => {
+    console.log("changing find", findId)
+    this.setState({selectedFind: findId})
   }
 
   render (){
@@ -33,7 +54,8 @@ class App extends Component {
           <Router>
             <Switch>
               <Route path="/stores" component={() => <GoogleMap />}/>
-              <Route path="/finds" component={() => <Finds user={this.state.user} likes={this.state.likes}/>}/>
+              <Route path="/finds" component={() => <Finds selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
+              <Route path="/find" component={() => <Find findId={this.state.selectedFind} />}/>
             </Switch>
           </Router>
       </div>

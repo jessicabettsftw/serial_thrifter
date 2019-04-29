@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import FindPoloroid from "./FindPoloroid"
+import FindPoloroid from "./FindPoloroid";
+import { Redirect } from "react-router-dom";
 
 class Finds extends Component {
   constructor(props){
@@ -12,16 +13,8 @@ class Finds extends Component {
       stores: [],
       filteredStores: []
     }
-
-  }
-
-  componentDidMount(){
     this.getFinds()
-    this.getStores()
-  }
-
-  componentDidUpdate(){
-
+    //this.getStores()
   }
 
   getLocation = () => {
@@ -37,21 +30,22 @@ class Finds extends Component {
     fetch(url)
     .then(res => res.json())
     .then(data => {
-      this.setState({finds: data, filteredFinds: data})
+      this.setState({
+        filteredFinds: data.finds,
+        finds: data.finds
+      })
     })
   }
 
   isLiked = (find_id) => {
-    return this.props.likes.includes(find_id)
+    return this.props.likes.map(find => find.find_id).includes(find_id)
   }
 
   displayFinds = () => {
-    //if (this.state.finds.length > 0) {
       return this.state.filteredFinds.map((find, index) => {
         let liked = this.isLiked(find.id)
-        return <FindPoloroid key={index} isLiked={liked} find={find} likeFind={(id) => this.likeFind(id)}/>
+        return <FindPoloroid selectFind={(id) => this.props.selectFind(id)} key={index} isLiked={liked} find={find} unlikeFind={(id) => this.unlikeFind(id)} likeFind={(id) => this.likeFind(id)}/>
       })
-    //}
   }
 
   brandFilter = (finds, brand) => {
@@ -94,7 +88,6 @@ class Finds extends Component {
     fetch(url)
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       this.setState({stores: data, filteredStores: data})
     })
   }
@@ -102,7 +95,6 @@ class Finds extends Component {
   locationFilter = (finds) => {
     this.getLocation()
     .then(data => {
-      console.log(data.location)
       let storeFiltered = []
       this.state.filteredFinds.forEach( find => {
         storeFiltered.push()
@@ -116,20 +108,33 @@ class Finds extends Component {
   }
 
   likeFind = (findId) => {
-    console.log(findId)
-    console.log(this.props.user.id)
-    let url = "http://localhost:3000/likes"
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        user_id: this.props.user.id,
-        find_id: findId
-      })})
-      .then( res => console.log(res))
+    if (this.isLiked(findId) === false){
+      let url = "http://localhost:3000/likes"
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          "user_id": this.props.user.id,
+          "find_id": findId
+        })})
+        .then( res => res.json())
+        .then(data => {
+          this.props.addLike(data)
+        })
+    }
   }
+
+    unlikeFind = (findId) => {
+      if (this.isLiked(findId)){
+        let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
+        fetch(url, {
+          method: "DELETE"})
+          .then( this.props.removeLike(findId))
+        }
+    }
 
   filterFinds = (ev) => {
     ev.preventDefault()
@@ -139,7 +144,7 @@ class Finds extends Component {
 
     let brand_filtered = this.brandFilter(this.state.finds, brand)
     let price_filtered = this.priceFilter(brand_filtered, price)
-    let location_filtered = this.locationFilter(price_filtered)
+    //let location_filtered = this.locationFilter(price_filtered)
 
 
     this.setState({filteredFinds: price_filtered})
@@ -147,7 +152,9 @@ class Finds extends Component {
   }
 
   render (){
-    return (
+    return (this.props.selectedFind !== 0) ? (
+      <Redirect to="/find" />
+    ) : (
       <div>
         <div className="">
           <form onSubmit={(ev) => this.filterFinds(ev)} className="finds-filters">
