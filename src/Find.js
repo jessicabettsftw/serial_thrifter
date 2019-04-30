@@ -25,7 +25,9 @@ class Find extends Component {
     let url = `http://localhost:3000/stores/${this.props.find.store_id}`
     fetch(url)
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      this.setState({store: data})
+    })
   }
 
   likeFind = (findId) => {
@@ -67,9 +69,10 @@ class Find extends Component {
         </div>
         <div className="col lrg-poloroid">
           <p>Id:{this.props.find.id} </p>
-          <p>${this.props.find.price}.00</p>
           <p>Desc: {this.props.find.description}</p>
-          <p>Store ID: {this.props.find.store_id}</p>
+          <p>${this.props.find.price}.00</p>
+          <br></br><br></br><br></br>
+          <p onClick={() => console.log(this.state.store.phone_number)}>Store: {this.state.store.name}</p>
           <p>User ID: {this.props.find.user_id}</p>
         </div>
 
