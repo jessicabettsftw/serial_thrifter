@@ -44,7 +44,12 @@ class App extends Component {
 
   selectFind = (findId) => {
     console.log("changing find", findId)
-    this.setState({selectedFind: findId})
+    let url = `http://localhost:3000/finds/${findId}`
+    return fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      this.setState({selectedFind: data})
+    })
   }
 
   render (){
@@ -55,7 +60,7 @@ class App extends Component {
             <Switch>
               <Route path="/stores" component={() => <GoogleMap />}/>
               <Route path="/finds" component={() => <Finds selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
-              <Route path="/find" component={() => <Find findId={this.state.selectedFind} />}/>
+              <Route path="/find" component={() => <Find user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
             </Switch>
           </Router>
       </div>

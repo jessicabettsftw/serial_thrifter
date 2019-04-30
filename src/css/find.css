@@ -1,0 +1,28 @@
+.lrg-poloroid {
+  width: 360px;
+  height: 480px;
+  background-color: white;
+  justify-content: center;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 2%;
+  padding-top: 5%;
+}
+
+.lrg-poloroid-img {
+  display: block;
+  border: solid 1px;
+  border-color: #F0EFEF;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+}
+
+#find {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  background-color: white;
+  width: 80%;
+}

@@ -1,33 +1,78 @@
 import React, { Component } from "react";
+import converse from "./images/lrg-Converse.png"
+import notLiked from "./images/flame.png"
 
 class Find extends Component {
   constructor(props){
     super(props)
-
+    console.log(this.props.likes)
     this.state = {
-      find: {}
+      store: {}
     }
-    this.getFind(this.props.findId)
+
   }
 
-  getFind = (id) => {
-    let url = `http://localhost:3000/finds/${id}`
-    return fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      this.setState({find: data})
-    })
+  componentDidMount(){
+    this.getStore()
   }
+
+  isLiked = (find_id) => {
+    return this.props.likes.map(find => find.find_id).includes(find_id)
+  }
+
+  getStore = () => {
+    console.log(this.props.find.store_id)
+    let url = `http://localhost:3000/stores/${this.props.find.store_id}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => console.log(data))
+  }
+
+  likeFind = (findId) => {
+    console.log("liking")
+    if (this.isLiked(findId) === false){
+      let url = "http://localhost:3000/likes"
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          "user_id": this.props.user.id,
+          "find_id": findId
+        })})
+        .then( res => res.json())
+        .then(data => {
+          this.props.addLike(data)
+        })
+    }
+  }
+
+    unlikeFind = (findId) => {
+      if (this.isLiked(findId)){
+        let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
+        fetch(url, {
+          method: "DELETE"})
+          .then( this.props.removeLike(findId))
+        }
+    }
 
   render(){
     return(
-      <div>
-      <p>Id:{this.state.find.id} </p>
-      <p>${this.state.find.price}.00</p>
-      <p>Desc: {this.state.find.description}</p>
-      <p>Store ID: {this.state.find.store_id}</p>
-      <p>User ID: {this.state.find.user_id}</p>
-      <img src={this.state.find.image} alt="find" />
+      <div id="find" className="row justify-content-center">
+        <div className="col lrg-poloroid justify-content-center">
+            <img src={converse} alt="find" className="lrg-poloroid-img"/>
+            <span>{this.isLiked(this.props.find.id).toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}>🔥</span> : <img src={notLiked} alt="not liked" onClick={() => this.likeFind(this.props.find.id)} />}</span>
+        </div>
+        <div className="col lrg-poloroid">
+          <p>Id:{this.props.find.id} </p>
+          <p>${this.props.find.price}.00</p>
+          <p>Desc: {this.props.find.description}</p>
+          <p>Store ID: {this.props.find.store_id}</p>
+          <p>User ID: {this.props.find.user_id}</p>
+        </div>
+
       </div>
 
     )
