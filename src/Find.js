@@ -80,7 +80,7 @@ class Find extends Component {
             <span>{this.isLiked(this.props.find.id).toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}>🔥</span> : <img src={notLiked} alt="not liked" onClick={() => this.likeFind(this.props.find.id)} />}</span>
         </div>
         <div className="col lrg-info">
-          <p>Brand:{this.props.find.brand} </p>
+          <p>Brand: {this.props.find.brand} </p>
           <p>Desc: {this.props.find.description}</p>
           <p>${this.props.find.price}.00</p>
           <br></br><br></br><br></br>

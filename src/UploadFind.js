@@ -27,6 +27,12 @@ class UploadFind extends Component {
 
   }
 
+  updatePhoto = (event) => {
+    event.preventDefault()
+    console.log(event.target.files)
+    //check ext 
+  }
+
   render(){
     return(
       <div id="find" className="row justify-content-center">
@@ -35,6 +41,8 @@ class UploadFind extends Component {
         </div>
         <div className="col lrg-info overflow-auto">
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
+            <label for="exampleInputEmail1">Photo</label>
+            <input type="file" className="form-control-file" name="photoInput" onChange={(event) => this.updatePhoto(event)}/>
           <div className="form-group">
             <label for="exampleInputEmail1">Price</label>
             <input name="price" className="form-control" id="priceInput" placeholder="enter price" />
