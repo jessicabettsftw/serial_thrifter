@@ -79,13 +79,13 @@ class Find extends Component {
             <img src={converse} alt="find" className="lrg-poloroid-img"/>
             <span>{this.isLiked(this.props.find.id).toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}>🔥</span> : <img src={notLiked} alt="not liked" onClick={() => this.likeFind(this.props.find.id)} />}</span>
         </div>
-        <div className="col lrg-poloroid">
-          <p>Id:{this.props.find.id} </p>
+        <div className="col lrg-info">
+          <p>Brand:{this.props.find.brand} </p>
           <p>Desc: {this.props.find.description}</p>
           <p>${this.props.find.price}.00</p>
           <br></br><br></br><br></br>
           <p onClick={() => console.log(this.state.store.phone_number)}>Store: {this.state.store.name}</p>
-          <p>User: <img src={this.state.poster.image} alt="user avatar" /></p>
+          <p>{this.state.poster.username}: <img src={this.state.poster.image} alt="user avatar" className="user-avatar" /></p>
         </div>
 
       </div>

@@ -33,7 +33,7 @@ class UploadFind extends Component {
         <div className="col lrg-poloroid justify-content-center">
             <img src="{}" alt="find" className="lrg-poloroid-img"/>
         </div>
-        <div className="col lrg-poloroid overflow-auto">
+        <div className="col lrg-info overflow-auto">
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
           <div className="form-group">
             <label for="exampleInputEmail1">Price</label>
@@ -51,7 +51,7 @@ class UploadFind extends Component {
             <label for="exampleInputPassword1">Store City & State</label>
             <textarea class="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"></textarea>
           </div>
-          <select name="store" class="custom-select custom-select-lg mb-3">
+          <select name="store" className="form-group custom-select">
             <option selected>Choose a Store</option>
             <option value="1">One</option>
             <option value="2">Two</option>

@@ -122,7 +122,7 @@ export class MapContainer extends Component {
           </form>
         </div>
         <div className="row justify-content-center">
-          <div className="col-2">
+          <div className="col-2 text-align-left lrg-info">
             <p>
               Name: {this.state.clickedStore.name}
             </p>
@@ -133,21 +133,22 @@ export class MapContainer extends Component {
               Rating: {this.state.clickedStore.rating}
             </p>
           </div>
-          <div className="col-2">
+          {/*<div className="col-2 ">
             <ul className="stores-list">
               {this.displayStores()}
             </ul>
-          </div>
+          </div>*/}
+        <div className="col-3">
+          <Map
+            google={this.props.google}
+            zoom={9}
+            style={mapStyles}
+            center={this.state.centerPoint}
+          >
+          {this.displayMarkers()}
+          </Map>
         </div>
-
-        <Map
-          google={this.props.google}
-          zoom={9}
-          style={mapStyles}
-          center={this.state.centerPoint}
-        >
-        {this.displayMarkers()}
-        </Map>
+      </div>
       </div>
     );
   }

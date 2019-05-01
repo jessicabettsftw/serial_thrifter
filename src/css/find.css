@@ -11,6 +11,20 @@
   padding-top: 5%;
 }
 
+.lrg-info {
+  height: 480px;
+  width: 400px;
+  display: block;
+  background-color: white;
+  color: #e89d76;
+  font-weight: bold;
+  justify-content: center;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+  margin: 2%;
+  padding-top: 5%;
+}
+
 .lrg-poloroid-img {
   display: flex;
   border: solid 1px;
