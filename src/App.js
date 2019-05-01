@@ -6,6 +6,7 @@ import Signup from "./Signup";
 import Login from "./Login"
 import UploadFind from "./UploadFind";
 import Find from "./Find";
+import Home from "./Home";
 import Header from "./template/Header";
 
 class App extends Component {
@@ -61,6 +62,7 @@ class App extends Component {
           <Header />
           <Router>
             <Switch>
+              <Route path="/" component={() => <Home />}/>
               <Route path="/signup" component={() => <Signup />}/>
               <Route path="/login" component={() => <Login />}/>
               <Route path="/stores" component={() => <GoogleMap />}/>

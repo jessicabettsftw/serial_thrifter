@@ -15,7 +15,7 @@ export class MapContainer extends Component {
       centerPoint: {lat: 47.49855629475769, lng: -122.14184416996333},
       clickedStore: {}
     }
-    this.getStores("black diamond washington")
+    this.getStores("kent washington")
   }
 
   getStores = (location) => {
@@ -127,10 +127,16 @@ export class MapContainer extends Component {
               Name: {this.state.clickedStore.name}
             </p>
             <p>
+              Address: {(this.state.clickedStore.location !== undefined ) ? this.state.clickedStore.location.display_address : null}
+            </p>
+            <p>
               Phone: {this.state.clickedStore.display_phone}
             </p>
             <p>
               Rating: {this.state.clickedStore.rating}
+            </p>
+            <p>
+              Open: {(this.state.clickedStore.is_closed !== undefined)? ((this.state.clickedStore.is_closed) ? "Yes": "No") : null }
             </p>
           </div>
           {/*<div className="col-2 ">

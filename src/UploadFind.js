@@ -30,7 +30,8 @@ class UploadFind extends Component {
   updatePhoto = (event) => {
     event.preventDefault()
     console.log(event.target.files)
-    //check ext 
+    //check ext
+    //update state
   }
 
   render(){
