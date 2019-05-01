@@ -1,0 +1,25 @@
+.intro {
+  width: 50%;
+  margin: auto;
+  margin-top: 10%;
+  margin-bottom: 5%;
+  justify-content: center;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+}
+
+.session-links > a {
+  width: 20%;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  color: #E89D76;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+}
+
+.session-links > a:hover {
+  color: #565656;
+}

@@ -158,7 +158,7 @@ class Finds extends Component {
       <div>
         <div className="">
           <form onSubmit={(ev) => this.filterFinds(ev)} className="finds-filters">
-            <div className="form-inline">
+            <div className="row form-inline justify-content-center">
               <div className="col-2 form-check-inline">
                 <input className="form-check-input" name="myLocation" type="checkbox" value="" id="defaultCheck1" />
                 <label className="form-check-label text-secondary" >

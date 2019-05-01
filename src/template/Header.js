@@ -11,6 +11,7 @@ const Header = props => {
             <a className="nav-item nav-link" href="/finds">Finds</a>
             <a className="nav-item nav-link" href="/stores">Stores</a>
             <a className="nav-item nav-link" href="/upload-find">Upload Find</a>
+            <a className="nav-item nav-link" href="/user"><img className="avatar" src={props.user.image} alt="user" /></a>
           </div>
         </div>
       </nav>

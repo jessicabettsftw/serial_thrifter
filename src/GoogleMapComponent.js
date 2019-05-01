@@ -135,9 +135,6 @@ export class MapContainer extends Component {
             <p>
               Rating: {this.state.clickedStore.rating}
             </p>
-            <p>
-              Open: {(this.state.clickedStore.is_closed !== undefined)? ((this.state.clickedStore.is_closed) ? "Yes": "No") : null }
-            </p>
           </div>
           {/*<div className="col-2 ">
             <ul className="stores-list">

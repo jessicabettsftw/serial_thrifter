@@ -10,6 +10,7 @@ class UploadFind extends Component {
     this.state = {
       img: undefined,
       find_id: 0,
+      stores: [],
       redirect: false
     }
 
@@ -70,6 +71,29 @@ class UploadFind extends Component {
     this.setState({img: photo})
   }
 
+  showStores = () => {
+    return this.state.stores.map((store, index) => {
+      return <option value={index}>{store.name}</option>
+    })
+  }
+
+  getStores = (event) => {
+    let location = event.target.value
+    console.log(location)
+    let url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&location=${location}&limit=30&radius=20000`
+
+    fetch(url, {
+      'headers': {
+        'Authorization': "Bearer GeTWZrzUC-yLbRt8--5cYSypgjILaAFpYIMpC6xpgXMxwk86EQcmhzo51ZJPpBzEwdFBFYd_hXZwTIU4hwyzDqI9bcPyhyw9iBnXwwlSlJ2nSJBElOpVDhsXEP69XHYx"
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      this.setState({stores: data.businesses})
+    })
+  }
+
   render(){
     return (this.state.redirect === true) ? (<Redirect to="/finds" />)
     :(
@@ -101,13 +125,12 @@ class UploadFind extends Component {
           </div>
           <div className="form-group">
             <label for="exampleInputPassword1">Store City & State</label>
-            <textarea class="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"></textarea>
+            <input onBlur={(event) => this.getStores(event)} type="text" class="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"/>
           </div>
           <select name="store" className="form-group custom-select">
             <option selected>Choose a Store</option>
             <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            {this.showStores()}
           </select>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>

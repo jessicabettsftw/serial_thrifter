@@ -7,6 +7,7 @@ import Login from "./Login"
 import UploadFind from "./UploadFind";
 import Find from "./Find";
 import Home from "./Home";
+import User from "./User";
 import Header from "./template/Header";
 
 class App extends Component {
@@ -16,7 +17,7 @@ class App extends Component {
     this.state = {
       user: {id: 1, username: "jekka", name: "jessica",
         password: "cats", email: "jessiaannbettsis@gmail.com",
-        zip: 98010, bio: null, image:null},
+        zip: 98010, bio: null, image:"https://scontent-ort2-2.cdninstagram.com/vp/2caa24e5ad88e58c012a04550cdc8493/5D7082B4/t51.2885-15/e35/52909898_2312312622424463_8539354381621977442_n.jpg?_nc_ht=scontent-ort2-2.cdninstagram.com"},
       likes: [],
       selectedFind: 0
     }
@@ -59,7 +60,7 @@ class App extends Component {
   render (){
     return (
       <div className="grid-container">
-          <Header />
+          <Header user={this.state.user}/>
           <Router>
             <Switch>
               <Route exact path="/" component={() => <Home />}/>
@@ -69,6 +70,7 @@ class App extends Component {
               <Route path="/finds" component={() => <Finds selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
               <Route path="/find" component={() => <Find user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
               <Route path="/upload-find" component={() => <UploadFind user={this.state.user}/>}/>
+              <Route path="/user" component={() => <User user={this.state.user}/>}/>
             </Switch>
           </Router>
       </div>

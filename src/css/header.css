@@ -25,3 +25,10 @@
 .nav-link:active {
   color: #e89d76;
 }
+
+.avatar {
+  position: relative;
+  top: -18%;
+  width: 40px;
+  border-radius: 50%;
+}

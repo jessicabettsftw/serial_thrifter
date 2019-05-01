@@ -18,24 +18,10 @@ class Login extends Component {
     // console.log(username)
     // console.log(email)
     // console.log(password)
-    let url = "http://localhost:3000/users"
-    fetch( url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        "email": email,
-        "password": password
-      })})
-      .then( res => {
-        if (res.status === 200){
-          localStorage.setItem('Authorized', true);
-          localStorage.setItem('UserId', res.json().id);
-          this.setState({redirect: true})
-        }
-      })
+    let url = `http://localhost:3000/users/email/${email}/password/${password}`
+    fetch(url)
+    .then(res => console.log(res))
+    //.then()
   }
 
   render(){
