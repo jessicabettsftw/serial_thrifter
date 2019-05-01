@@ -62,13 +62,13 @@ class App extends Component {
           <Header />
           <Router>
             <Switch>
-              <Route path="/" component={() => <Home />}/>
+              <Route exact path="/" component={() => <Home />}/>
               <Route path="/signup" component={() => <Signup />}/>
               <Route path="/login" component={() => <Login />}/>
               <Route path="/stores" component={() => <GoogleMap />}/>
               <Route path="/finds" component={() => <Finds selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
               <Route path="/find" component={() => <Find user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
-              <Route path="/upload-find" component={() => <UploadFind />}/>
+              <Route path="/upload-find" component={() => <UploadFind user={this.state.user}/>}/>
             </Switch>
           </Router>
       </div>

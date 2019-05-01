@@ -8,7 +8,8 @@ class Find extends Component {
     console.log(this.props.likes)
     this.state = {
       store: {},
-      poster: {}
+      poster: {},
+      numLikes: ""
     }
     console.log(this.props)
   }
@@ -16,14 +17,26 @@ class Find extends Component {
   componentDidMount(){
     this.getStore()
     this.getUserAvatar(this.props.find.user_id)
+    this.getNumLikes()
   }
 
   isLiked = (find_id) => {
     return this.props.likes.map(find => find.find_id).includes(find_id)
   }
 
+  getNumLikes = () => {
+    //console.log(this.props.find.id)
+    let url = `http://localhost:3000/likes/find/${this.props.find.id}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      //console.log("num likes", data.likes.length)
+      this.setState({numLikes: data.likes.length})
+    })
+  }
+
   getStore = () => {
-    console.log(this.props.find.store_id)
+    //console.log(this.props.find.store_id)
     let url = `http://localhost:3000/stores/${this.props.find.store_id}`
     fetch(url)
     .then(res => res.json())
@@ -76,8 +89,8 @@ class Find extends Component {
     return(
       <div id="find" className="row justify-content-center">
         <div className="col lrg-poloroid justify-content-center">
-            <img src={converse} alt="find" className="lrg-poloroid-img"/>
-            <span>{this.isLiked(this.props.find.id).toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}>🔥</span> : <img src={notLiked} alt="not liked" onClick={() => this.likeFind(this.props.find.id)} />}</span>
+            <img src={this.props.find.photo} alt="find" className="lrg-poloroid-img"/>
+            <span>{this.isLiked(this.props.find.id).toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}>{this.state.numLikes}🔥</span> : <span>{this.state.numLikes}<img src={notLiked} alt="not liked" onClick={() => this.likeFind(this.props.find.id)} /></span>}</span>
         </div>
         <div className="col lrg-info">
           <p>Brand: {this.props.find.brand} </p>
