@@ -7,13 +7,15 @@ class Find extends Component {
     super(props)
     console.log(this.props.likes)
     this.state = {
-      store: {}
+      store: {},
+      poster: {}
     }
-
+    console.log(this.props)
   }
 
   componentDidMount(){
     this.getStore()
+    this.getUserAvatar(this.props.find.user_id)
   }
 
   isLiked = (find_id) => {
@@ -60,6 +62,16 @@ class Find extends Component {
         }
     }
 
+    getUserAvatar = (userId) => {
+      let url = `http://localhost:3000/users/${userId}`
+      return fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        this.setState({poster: data})
+      })
+    }
+
   render(){
     return(
       <div id="find" className="row justify-content-center">
@@ -73,7 +85,7 @@ class Find extends Component {
           <p>${this.props.find.price}.00</p>
           <br></br><br></br><br></br>
           <p onClick={() => console.log(this.state.store.phone_number)}>Store: {this.state.store.name}</p>
-          <p>User ID: {this.props.find.user_id}</p>
+          <p>User: <img src={this.state.poster.image} alt="user avatar" /></p>
         </div>
 
       </div>

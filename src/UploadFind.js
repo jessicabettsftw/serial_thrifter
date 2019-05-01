@@ -14,16 +14,16 @@ class UploadFind extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    let photo = event.target.elements['photo'].value
     let price = event.target.elements['price'].value
     let brand = event.target.elements['brand'].value
     let description = event.target.elements['description'].value
     let store = event.target.elements['store'].value
-    console.log(photo)
+    let city = event.target.elements['city'].value
     console.log(price)
     console.log(brand)
     console.log(description)
     console.log(store)
+    console.log(city)
 
   }
 
@@ -35,10 +35,6 @@ class UploadFind extends Component {
         </div>
         <div className="col lrg-poloroid overflow-auto">
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
-          <div className="form-group" >
-            <label for="exampleInputEmail1">Choose Photo</label>
-            <input name="photo" className="form-control" id="photoInput" placeholder="choose photo" />
-          </div>
           <div className="form-group">
             <label for="exampleInputEmail1">Price</label>
             <input name="price" className="form-control" id="priceInput" placeholder="enter price" />
