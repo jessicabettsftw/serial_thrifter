@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import GoogleMap from "./GoogleMapComponent";
-import Finds from "./Finds"
-import Find from "./Find"
-import Header from "./template/Header"
+import Finds from "./Finds";
+import Signup from "./Signup";
+import Login from "./Login"
+import UploadFind from "./UploadFind";
+import Find from "./Find";
+import Header from "./template/Header";
 
 class App extends Component {
   constructor(){
@@ -58,9 +61,12 @@ class App extends Component {
           <Header />
           <Router>
             <Switch>
+              <Route path="/signup" component={() => <Signup />}/>
+              <Route path="/login" component={() => <Login />}/>
               <Route path="/stores" component={() => <GoogleMap />}/>
               <Route path="/finds" component={() => <Finds selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
               <Route path="/find" component={() => <Find user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
+              <Route path="/upload-find" component={() => <UploadFind />}/>
             </Switch>
           </Router>
       </div>
