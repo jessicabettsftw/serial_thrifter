@@ -17,7 +17,7 @@ class App extends Component {
     this.state = {
       user: {id: 1, username: "jekka", name: "jessica",
         password: "cats", email: "jessiaannbettsis@gmail.com",
-        zip: 98010, bio: null, image:"https://scontent-ort2-2.cdninstagram.com/vp/2caa24e5ad88e58c012a04550cdc8493/5D7082B4/t51.2885-15/e35/52909898_2312312622424463_8539354381621977442_n.jpg?_nc_ht=scontent-ort2-2.cdninstagram.com"},
+        zip: 98010, bio: "i like cats", image:"https://scontent-ort2-2.cdninstagram.com/vp/2caa24e5ad88e58c012a04550cdc8493/5D7082B4/t51.2885-15/e35/52909898_2312312622424463_8539354381621977442_n.jpg?_nc_ht=scontent-ort2-2.cdninstagram.com"},
       likes: [],
       selectedFind: 0
     }

@@ -1,5 +1,19 @@
 .lrg-profile-img {
-  width: 40px;
+  width: 45%;
   display: block;
   border-radius: 50%;
+}
+
+.lrg-user-info {
+  height: 480px;
+  width: 400px;
+  display: block;
+  background-color: white;
+  color: #e89d76;
+  font-weight: bold;
+  justify-content: center;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Unna', serif;
+  margin: 2%;
+  padding-top: 5%;
 }
