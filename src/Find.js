@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import converse from "./images/lrg-Converse.png"
 import notLiked from "./images/flame.png"
+import { Redirect } from "react-router-dom";
 
 class Find extends Component {
   constructor(props){
     super(props)
-    console.log(this.props.likes)
     this.state = {
       store: {},
       poster: {},
@@ -15,9 +15,11 @@ class Find extends Component {
   }
 
   componentDidMount(){
-    this.getStore()
-    this.getUserAvatar(this.props.find.user_id)
-    this.getNumLikes()
+    if (this.props.find !== undefined) {
+      this.getStore()
+      this.getUserAvatar(this.props.find.user_id)
+      this.getNumLikes()
+    }
   }
 
   isLiked = (find_id) => {
@@ -80,13 +82,13 @@ class Find extends Component {
       return fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         this.setState({poster: data})
       })
     }
 
   render(){
-    return(
+    return (this.props.selectedUser !== undefined)? (<Redirect to="/profile" />)
+  :( (this.props.find === undefined)? (null): (
       <div id="find" className="row justify-content-center">
         <div className="col lrg-poloroid justify-content-center">
             <img src={this.props.find.photo} alt="find" className="lrg-poloroid-img"/>
@@ -98,12 +100,11 @@ class Find extends Component {
           <p>${this.props.find.price}.00</p>
           <br></br><br></br><br></br>
           <p onClick={() => console.log(this.state.store.phone_number)}>Store: {this.state.store.name}</p>
-          <p>{this.state.poster.username}: <img src={this.state.poster.image} alt="user avatar" className="user-avatar" /></p>
+          <p>{this.state.poster.username}: <img onClick={() => this.props.setSelectedUser(this.state.poster)} src={this.state.poster.image} alt="user avatar" className="user-avatar" /></p>
         </div>
-
       </div>
 
-    )
+    ))
   }
 }
 

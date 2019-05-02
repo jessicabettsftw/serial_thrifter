@@ -4,11 +4,11 @@
   border-radius: 50%;
 }
 
-.lrg-user-info {
-  height: 480px;
+.sml-user-info {
+  height: 250px;
   width: 400px;
-  display: block;
   background-color: white;
+  overflow: auto;
   color: #e89d76;
   font-weight: bold;
   justify-content: center;

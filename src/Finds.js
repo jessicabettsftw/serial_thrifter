@@ -152,7 +152,7 @@ class Finds extends Component {
   }
 
   render (){
-    return (this.props.selectedFind !== 0) ? (
+    return (this.props.selectedFind !== undefined) ? (
       <Redirect to="/find" />
     ) : (
       <div>
