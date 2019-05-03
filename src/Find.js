@@ -11,9 +11,10 @@ class Find extends Component {
       poster: {},
       numLikes: "",
       findDisplay: "show",
-      stores: []
+      stores: [],
+      redirect: false,
+
     }
-    console.log(this.props)
   }
 
   componentDidMount(){
@@ -21,6 +22,7 @@ class Find extends Component {
       this.getStore()
       this.getUserAvatar(this.props.find.user_id)
       this.getNumLikes()
+      this.setState({price: this.props.find.price, brand: this.props.find.brand, description: this.props.find.description})
     }
   }
 
@@ -128,7 +130,16 @@ class Find extends Component {
 
     deleteFind = () => {
       console.log("delete me")
-      //this.setState({findDisplay: "edit"})
+      let url = `http://localhost:3000/finds/${this.props.find.id}`
+      fetch(url, {
+        method: "DELETE"
+      })
+      .then(this.props.setFind(undefined))
+    }
+
+    changingForm = (event) => {
+      //console.log(event.target.name)
+      this.setState({[event.target.name]: event.target.value})
     }
 
     displayFind = () => {
@@ -155,25 +166,16 @@ class Find extends Component {
                 */}
             <div className="form-group">
               <label for="exampleInputEmail1">Price</label>
-              <input name="price" className="form-control" id="priceInput" placeholder="enter price" />
+              <input onChange={(event) => this.changingForm(event)} name="price" className="form-control" id="priceInput" placeholder="enter price" value={this.state.price}/>
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Brand</label>
-              <input name="brand" className="form-control" id="brandInput" placeholder="enter brand" />
+              <input onChange={(event) => this.changingForm(event)} name="brand" className="form-control" id="brandInput" placeholder="enter brand" value={this.state.brand}/>
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Description</label>
-              <textarea class="form-control" name="description" id="descriptionInput" placeholder="enter description" rows="3"></textarea>
+              <textarea onChange={(event) => this.changingForm(event)} class="form-control" name="description" id="descriptionInput" placeholder="enter description" value={this.state.description} rows="3"></textarea>
             </div>
-            <div className="form-group">
-              <label for="exampleInputPassword1">Store City & State</label>
-              <input onBlur={(event) => this.getStores(event)} type="text" class="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"/>
-            </div>
-            <select name="store" className="form-group custom-select">
-              <option selected>Choose a Store</option>
-              <option value="1">One</option>
-              {this.showStores()}
-            </select>
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         )
@@ -185,12 +187,10 @@ class Find extends Component {
       let price = event.target.elements['price'].value
       let brand = event.target.elements['brand'].value
       let description = event.target.elements['description'].value
-      let store = event.target.elements['store'].value
 
       console.log(price)
       console.log(brand)
       console.log(description)
-      console.log(store)
 
       let url = `http://localhost:3000/finds/${this.props.find.id}`
       console.log(url)
@@ -202,19 +202,19 @@ class Find extends Component {
         body: JSON.stringify({
           "price": price,
           "description": description,
-          "brand": brand,
-          "store": store
+          "brand": brand
         })})
         .then( res => res.json())
         .then(data => {
           console.log(data)
-          //this.props.setUser(data)
+          this.props.setFind(data)
+          //this.setState({findDisplay: "show"})
         })
     }
 
   render(){
     return (this.props.selectedUser !== undefined)? (<Redirect to="/profile" />)
-  :( (this.props.find === undefined)? (null): (
+  :( (this.props.find === undefined)? (<Redirect to="/finds" />): (
       <div id="find" className="row justify-content-center">
         <div className="col lrg-poloroid justify-content-center">
             <img src={this.props.find.photo} alt="find" className="lrg-poloroid-img"/>

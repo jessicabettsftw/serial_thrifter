@@ -35,13 +35,11 @@ class Signup extends Component {
     let email = event.target.elements['email'].value
     let password = event.target.elements['password'].value
     let image = event.target.elements['photo'].value
-    let name = event.target.elements['name'].value
 
     console.log(username)
     console.log(email)
     console.log(password)
     console.log(image)
-    console.log(name)
     let url = "http://localhost:3000/users"
     fetch( url, {
       method: "POST",
@@ -53,7 +51,6 @@ class Signup extends Component {
         "username": username,
         "email": email,
         "password": password,
-        "name": name,
         "image": this.state.img
       })})
       .then( res => {
@@ -75,10 +72,6 @@ class Signup extends Component {
       </div>
       <div className="col lrg-info">
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
-          <div className="form-group" >
-            <label for="exampleInputEmail1">Name</label>
-            <input name="name" type="name" className="form-control" id="nameInput" placeholder="Enter Name" />
-          </div>
           <div className="form-group" >
             <label for="exampleInputEmail1">Username</label>
             <input name="username" type="username" className="form-control" id="usernameInput" placeholder="Enter Username" />

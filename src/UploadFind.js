@@ -11,7 +11,8 @@ class UploadFind extends Component {
       img: undefined,
       find_id: 0,
       stores: [],
-      redirect: false
+      redirect: false,
+      selectedStore: undefined
     }
 
   }
@@ -22,35 +23,58 @@ class UploadFind extends Component {
     let price = event.target.elements['price'].value
     let brand = event.target.elements['brand'].value
     let description = event.target.elements['description'].value
-    let store = event.target.elements['store'].value
-    let city = event.target.elements['city'].value
+    //let city = event.target.elements['city'].value
+    let store = this.state.selectedStore
     console.log(price)
     console.log(brand)
     console.log(description)
     console.log(store)
-    console.log(city)
+    //console.log(city)
     console.log(photo)
 
-    let url = "http://localhost:3000/finds"
-    fetch(url, {
+    let url = "http://localhost:3000/stores/"
+    fetch( url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        'price': parseInt(price),
-        'brand': brand,
-        'description': description,
-        'photo': photo,
-        'user_id': this.props.user.id,
-        'store_id': 1
-      })})
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        this.setState({redirect: true, })
-      })
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          'phone_number': store.display_phone,
+          'name': store.name,
+          'zip': store.location.zip_code,
+          'street': store.location.address1,
+          'city': store.location.city,
+          'state': store.location.state,
+          'country': store.location.country,
+          'latitude': store.coordinates.latitude,
+          'longitude': store.coordinates.longitude,
+          'rating': store.rating
+        })})
+        .then(res => res.json())
+        .then(store => {
+          console.log(store)
+          let url = "http://localhost:3000/finds"
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              'price': parseInt(price),
+              'brand': brand,
+              'description': description,
+              'photo': photo,
+              'user_id': this.props.user.id,
+              'store_id': store.id
+            })})
+            .then(res => res.json())
+            .then(data => {
+              console.log(data)
+              this.setState({redirect: true, })
+            })
+        })
   }
 
   updatePhoto = (event) => {
@@ -73,7 +97,7 @@ class UploadFind extends Component {
 
   showStores = () => {
     return this.state.stores.map((store, index) => {
-      return <option value={index}>{store.name}</option>
+      return <option value={store.id}>{store.name}</option>
     })
   }
 
@@ -92,6 +116,11 @@ class UploadFind extends Component {
       console.log(data)
       this.setState({stores: data.businesses})
     })
+  }
+
+  setStore = (event) => {
+    let chosen = this.state.stores.filter(store => store.id === event.target.value)
+    this.setState({selectedStore: chosen[0]})
   }
 
   render(){
@@ -127,9 +156,8 @@ class UploadFind extends Component {
             <label for="exampleInputPassword1">Store City & State</label>
             <input onBlur={(event) => this.getStores(event)} type="text" class="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"/>
           </div>
-          <select name="store" className="form-group custom-select">
+          <select onChange={(ev) => this.setStore(ev)} name="store" className="form-group custom-select">
             <option selected>Choose a Store</option>
-            <option value="1">One</option>
             {this.showStores()}
           </select>
           <button type="submit" className="btn btn-primary">Submit</button>

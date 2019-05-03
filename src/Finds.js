@@ -14,15 +14,7 @@ class Finds extends Component {
       filteredStores: []
     }
     this.getFinds()
-    //this.getStores()
-  }
-
-  getLocation = () => {
-    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCLTnIgnmTHVA87V0pTg7n2N2Y6HZxE7hA"
-    return fetch(url, {
-      method: 'POST'
-    })
-    .then(result => result.json())
+    this.getStores()
   }
 
   getFinds = () => {
@@ -88,23 +80,32 @@ class Finds extends Component {
     fetch(url)
     .then(res => res.json())
     .then(data => {
-      this.setState({stores: data, filteredStores: data})
+      this.setState({stores: data.stores, filteredStores: data.stores})
     })
   }
 
   locationFilter = (finds) => {
-    this.getLocation()
-    .then(data => {
-      let storeFiltered = []
-      this.state.filteredFinds.forEach( find => {
-        storeFiltered.push()
+      let myZip = this.props.user.zip
+      let locationFiltered = this.state.filteredFinds.filter(find => {
+        //console.log(find.id)
+        let store = this.state.stores[find.store_id]
+        if (store !== undefined){
+          console.log("my zip", myZip)
+          console.log("store zip", )
+          if (store.zip === myZip){
+            return find
+          }
+        }
       })
       //let uniqStoreIds = [... new Set(storeIds)]
       //console.log(uniqStoreIds)
-
-    })
+      console.log(locationFiltered)
     //this.getDistance()
-    return finds
+    if (locationFiltered.length !== undefined){
+      return locationFiltered
+    } else {
+      return null
+    }
   }
 
   likeFind = (findId) => {
@@ -144,14 +145,14 @@ class Finds extends Component {
 
     let brand_filtered = this.brandFilter(this.state.finds, brand)
     let price_filtered = this.priceFilter(brand_filtered, price)
-    //let location_filtered = this.locationFilter(price_filtered)
+    let location_filtered = this.locationFilter(price_filtered)
 
 
-    this.setState({filteredFinds: price_filtered})
+    this.setState({filteredFinds: location_filtered})
 
   }
 
-  
+
 
   render (){
     return (this.props.selectedFind !== undefined) ? (

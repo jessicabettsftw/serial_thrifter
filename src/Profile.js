@@ -77,7 +77,7 @@ class Profile extends Component {
             <img className="lrg-profile-img float-right" src={this.props.selectedUser.image} alt="" />
           </div>
           <div className="col lrg-user-info">
-            <p>{this.props.selectedUser.name} </p>
+            <p>{this.props.selectedUser.username} </p>
             <p>{this.props.selectedUser.email} </p>
             <p>{this.props.selectedUser.bio} </p>
             <p>{this.props.selectedUser.zip} </p>
