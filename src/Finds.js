@@ -90,8 +90,8 @@ class Finds extends Component {
         //console.log(find.id)
         let store = this.state.stores[find.store_id]
         if (store !== undefined){
-          console.log("my zip", myZip)
-          console.log("store zip", )
+          //console.log("my zip", myZip)
+          //console.log("store zip", )
           if (store.zip === myZip){
             return find
           }
@@ -99,12 +99,12 @@ class Finds extends Component {
       })
       //let uniqStoreIds = [... new Set(storeIds)]
       //console.log(uniqStoreIds)
-      console.log(locationFiltered)
+      //console.log(locationFiltered)
     //this.getDistance()
-    if (locationFiltered.length !== undefined){
+    if (locationFiltered.length !== 0){
       return locationFiltered
     } else {
-      return null
+      return []
     }
   }
 
@@ -142,16 +142,25 @@ class Finds extends Component {
 
     let brand = ev.target.elements['brandInput'].value
     let price = ev.target.elements['priceInput'].value
+    let location = ev.target.elements['myLocation'].checked
+    console.log(ev.target.elements['myLocation'].checked)
 
     let brand_filtered = this.brandFilter(this.state.finds, brand)
+    console.log(brand_filtered)
     let price_filtered = this.priceFilter(brand_filtered, price)
-    let location_filtered = this.locationFilter(price_filtered)
-
-
+    console.log(price_filtered)
+    let location_filtered = price_filtered
+    if (location === true) {
+      location_filtered = this.locationFilter(price_filtered)
+    }
     this.setState({filteredFinds: location_filtered})
 
   }
 
+  clearFilters = (event) => {
+    console.log(event)
+
+  }
 
 
   render (){
@@ -160,7 +169,7 @@ class Finds extends Component {
     ) : (
       <div>
         <div className="">
-          <form onSubmit={(ev) => this.filterFinds(ev)} className="finds-filters">
+          <form onSubmit={(ev) => this.filterFinds(ev)} onChange={(event) => this.clearFilters(event)} className="finds-filters">
             <div className="row form-inline justify-content-center">
               <div className="col-2 form-check-inline">
                 <input className="form-check-input" name="myLocation" type="checkbox" value="" id="defaultCheck1" />
