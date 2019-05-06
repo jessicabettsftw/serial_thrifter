@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 class UploadFind extends Component {
   constructor(props){
     super(props)
-    console.log(this.props.likes)
+    console.log(this.props)
     this.state = {
       img: undefined,
       find_id: 0,
@@ -29,13 +29,14 @@ class UploadFind extends Component {
     console.log(store)
     //console.log(city)
     console.log(photo)
-
+    let jwt = localStorage.getItem('jwt')
     let url = "http://localhost:3000/stores/"
     fetch( url, {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Accept": "application/json",
+          'Authorization': 'Bearer ' + jwt
         },
         body: JSON.stringify({
           'phone_number': store.display_phone,
@@ -52,12 +53,14 @@ class UploadFind extends Component {
         .then(res => res.json())
         .then(store => {
           console.log(store)
+          let jwt = localStorage.getItem('jwt')
           let url = "http://localhost:3000/finds"
           fetch(url, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Accept": "application/json"
+              "Accept": "application/json",
+              'Authorization': 'Bearer ' + jwt
             },
             body: JSON.stringify({
               'price': parseInt(price),
@@ -95,7 +98,7 @@ class UploadFind extends Component {
 
   showStores = () => {
     return this.state.stores.map((store, index) => {
-      return <option value={store.id}>{store.name}</option>
+      return <option key={index} value={store.id}>{store.name}</option>
     })
   }
 
@@ -122,7 +125,7 @@ class UploadFind extends Component {
   }
 
   render(){
-    return (this.state.redirect === true) ? (<Redirect to="/finds" />)
+    return (this.state.redirect === true) ? (<Redirect to="/user" />)
     :(
       <div id="find" className="row justify-content-center">
         <div className="col lrg-poloroid justify-content-center">
@@ -131,31 +134,31 @@ class UploadFind extends Component {
         <div className="col lrg-info overflow-auto">
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
             {/*
-              <label for="exampleInputEmail1">Photo</label>
+              <label >Photo</label>
               <input type="file" className="form-control-file" name="photoInput" onChange={(event) => this.updatePhoto(event)}/>
               */}
           <div className="form-group">
-            <label for="exampleInputEmail1">Photo</label>
+            <label >Photo</label>
             <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" />
           </div>
           <div className="form-group">
-            <label for="exampleInputEmail1">Price</label>
+            <label >Price</label>
             <input name="price" className="form-control" id="priceInput" placeholder="enter price" />
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Brand</label>
+            <label >Brand</label>
             <input name="brand" className="form-control" id="brandInput" placeholder="enter brand" />
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Description</label>
-            <textarea class="form-control" name="description" id="descriptionInput" placeholder="enter description" rows="3"></textarea>
+            <label >Description</label>
+            <textarea className="form-control" name="description" id="descriptionInput" placeholder="enter description" rows="3"></textarea>
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Store City & State</label>
-            <input onBlur={(event) => this.getStores(event)} type="text" class="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"/>
+            <label >Store City & State</label>
+            <input onBlur={(event) => this.getStores(event)} type="text" className="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"/>
           </div>
           <select onChange={(ev) => this.setStore(ev)} name="store" className="form-group custom-select">
-            <option selected>Choose a Store</option>
+            <option >Choose a Store</option>
             {this.showStores()}
           </select>
           <button type="submit" className="btn btn-primary">Submit</button>

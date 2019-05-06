@@ -14,8 +14,13 @@ class Profiles extends Component {
   }
 
   getProfiles = () => {
+    let jwt = localStorage.getItem('jwt')
     let url = "http://localhost:3000/users"
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }})
     .then(res => res.json())
     .then(data => {
       this.setState({profiles: data.users})

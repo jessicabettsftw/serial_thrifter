@@ -130,12 +130,14 @@ class Finds extends Component {
 
   likeFind = (findId) => {
     if (this.isLiked(findId) === false){
+      let jwt = localStorage.getItem('jwt')
       let url = "http://localhost:3000/likes"
       fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Accept": "application/json",
+          'Authorization': 'Bearer ' + jwt
         },
         body: JSON.stringify({
           "user_id": this.props.user.id,
@@ -150,9 +152,13 @@ class Finds extends Component {
 
     unlikeFind = (findId) => {
       if (this.isLiked(findId)){
+        let jwt = localStorage.getItem('jwt')
         let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
         fetch(url, {
-          method: "DELETE"})
+          method: "DELETE",
+          headers: {
+            'Authorization': 'Bearer ' + jwt
+          }})
           .then( this.props.removeLike(findId))
         }
     }

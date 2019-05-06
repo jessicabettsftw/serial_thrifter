@@ -154,10 +154,13 @@ class Find extends Component {
     }
 
     deleteFind = () => {
-      console.log("delete me")
+      let jwt = localStorage.getItem('jwt')
       let url = `http://localhost:3000/finds/${this.props.find.id}`
       fetch(url, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+          'Authorization': 'Bearer ' + jwt
+        }
       })
       .then(this.props.setFind(undefined))
     }
@@ -217,12 +220,14 @@ class Find extends Component {
       console.log(brand)
       console.log(description)
 
+      let jwt = localStorage.getItem('jwt')
       let url = `http://localhost:3000/finds/${this.props.find.id}`
       console.log(url)
       fetch( url, {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + jwt
         },
         body: JSON.stringify({
           "price": price,

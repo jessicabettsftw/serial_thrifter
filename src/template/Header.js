@@ -13,6 +13,7 @@ const Header = props => {
             <Link className="nav-item nav-link" to='/stores'>Stores</Link>
             <Link className="nav-item nav-link" to='/finds'>Finds</Link>
             <Link className="nav-item nav-link" to='/upload-find'>Upload Find</Link>
+            <Link className="nav-item nav-link" to='/profiles'>Users</Link>
             <Link className="nav-item nav-link" to='/user'><img className="avatar" src={props.user.image} alt="user" /></Link>
           </div>
           : null}

@@ -27,8 +27,8 @@ class User extends Component {
       bio: "",
       image: ""
     }
-    //this.getFinds()
-    //this.getLikedFinds()
+    this.getFinds()
+    this.getLikedFinds()
     console.log()
   }
 
@@ -37,8 +37,13 @@ class User extends Component {
   }
 
   getFinds = () => {
+    let jwt = localStorage.getItem('jwt')
     let url = `http://localhost:3000/finds/user/${this.props.user.id}`
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }})
     .then(res => res.json())
     .then(data => {
       //console.log(data)
@@ -47,8 +52,13 @@ class User extends Component {
   }
 
   getLikedFinds = () => {
+    let jwt = localStorage.getItem('jwt')
     let url = `http://localhost:3000/likes/finds/${this.props.user.id}`;
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }})
     .then(res => res.json())
     .then(data => {
       this.setState({myLikedFinds: data.likes})
@@ -59,12 +69,14 @@ class User extends Component {
   likeFind = (findId) => {
     console.log("liking")
     if (this.isLiked(findId) === false){
+      let jwt = localStorage.getItem('jwt')
       let url = "http://localhost:3000/likes"
       fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Accept": "application/json",
+          'Authorization': 'Bearer ' + jwt
         },
         body: JSON.stringify({
           "user_id": this.props.user.id,
@@ -79,15 +91,20 @@ class User extends Component {
 
   unlikeFind = (findId) => {
     if (this.isLiked(findId)){
+      let jwt = localStorage.getItem('jwt')
       let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
       fetch(url, {
-        method: "DELETE"})
+        method: "DELETE",
+        headers: {
+          'Authorization': 'Bearer ' + jwt
+        }})
       .then( this.props.removeLike(findId))
     }
   }
 
   changingForm = (event) => {
-    //console.log(event.target.name)
+    console.log(event.target.name)
+    console.log(event.target.value)
     this.setState({[event.target.name]: event.target.value})
   }
 
@@ -149,7 +166,7 @@ class User extends Component {
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Bio</label>
-              <textarea onChange={(event) => this.changingForm(event)} class="form-control" name="bio" id="bioInput" placeholder="Enter Bio" rows="3" value={this.state.bio}></textarea>
+              <textarea onChange={(event) => this.changingForm(event)} className="form-control" name="bio" id="bioInput" placeholder="Enter Bio" rows="3" value={this.state.bio}></textarea>
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Photo</label>
@@ -175,11 +192,13 @@ class User extends Component {
     // console.log(password)
     // console.log(image)
     // console.log(zip)
+    let jwt = localStorage.getItem('jwt')
     let url = `http://localhost:3000/users/${this.props.user.id}`
     fetch( url, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + jwt
       },
       body: JSON.stringify({
         "email": email,
