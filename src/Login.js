@@ -12,16 +12,28 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    let email = event.target.elements['email'].value
+    let username = event.target.elements['username'].value
     let password = event.target.elements['password'].value
 
     // console.log(username)
     // console.log(email)
     // console.log(password)
-    let url = `http://localhost:3000/users/email/${email}/password/${password}`
-    fetch(url)
-    .then(res => console.log(res))
-    //.then()
+    let url = "http://localhost:3000/login"
+    fetch( url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          "username": username,
+          "password": password
+        }
+      })})
+      .then( res => res.json())
+      .then(data => {
+        console.log(data)
+      })
   }
 
   render(){
@@ -31,8 +43,8 @@ class Login extends Component {
       <div >
       <form onSubmit={(ev) => this.handleSubmit(ev)}>
         <div className="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+          <label for="exampleInputEmail1">Username</label>
+          <input name="username" type="username" className="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp" placeholder="Enter email" />
         </div>
         <div className="form-group">
           <label for="exampleInputPassword1">Password</label>

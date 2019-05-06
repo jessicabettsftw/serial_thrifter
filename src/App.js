@@ -17,7 +17,8 @@ class App extends Component {
     super()
 
     this.state = {
-      user: {"id":1,"username":"jekka","password":"cats","email":"jessiaannbettsis@gmail.com","zip":"98010","bio":"i like cats","image":"https://scontent-ort2-2.cdninstagram.com/vp/2caa24e5ad88e58c012a04550cdc8493/5D7082B4/t51.2885-15/e35/52909898_2312312622424463_8539354381621977442_n.jpg?_nc_ht=scontent-ort2-2.cdninstagram.com","created_at":"2019-05-02T23:59:49.207Z","updated_at":"2019-05-03T00:18:00.628Z"},
+    //  user: {"id":1,"username":"jekka","password":"cats","email":"jessiaannbettsis@gmail.com","zip":"98010","bio":"i like cats","image":"https://scontent-ort2-2.cdninstagram.com/vp/2caa24e5ad88e58c012a04550cdc8493/5D7082B4/t51.2885-15/e35/52909898_2312312622424463_8539354381621977442_n.jpg?_nc_ht=scontent-ort2-2.cdninstagram.com","created_at":"2019-05-02T23:59:49.207Z","updated_at":"2019-05-03T00:18:00.628Z"},
+      user: {},
       likes: [],
       selectedFind: undefined,
       selectedUser: undefined
@@ -78,8 +79,8 @@ class App extends Component {
           <Router>
             <Switch>
               <Route exact path="/" component={() => <Home />}/>
-              <Route path="/signup" component={() => <Signup />}/>
-              <Route path="/login" component={() => <Login />}/>
+              <Route path="/signup" component={() => <Signup user={this.state.user} setUser={this.setUser}/>}/>
+              <Route path="/login" component={() => <Login user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/stores" component={() => <GoogleMap />}/>
               <Route path="/finds" component={() => <Finds selectFind={(id) => this.selectFind(id)}  selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
               <Route path="/find" component={() => <Find setFind={this.setFind} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser} user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>

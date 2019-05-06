@@ -44,8 +44,7 @@ class Signup extends Component {
     fetch( url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         user: {
@@ -54,11 +53,13 @@ class Signup extends Component {
           "password": password,
           "zip": '98010',
           "bio": "i like cats",
-          "image": this.state.img
+          "image": image
         }
       })})
       .then( res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+      })
 
     // fetch('http://localhost:3000/users', {
     //   method: 'POST',
@@ -101,7 +102,7 @@ class Signup extends Component {
           </div>
           <div className="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+            <input name="password" type="password" className="form-control" placeholder="Password" />
           </div>
           <div className="form-group">
             <label for="exampleInputEmail1">Photo</label>
