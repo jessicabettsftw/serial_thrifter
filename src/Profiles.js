@@ -37,14 +37,16 @@ class Profiles extends Component {
   }
 
   render(){
-    return (this.props.selectedUser !== undefined)?
-    (<Redirect to="/profile" /> )
-    : (
-    <div id="find" className="row">
-      {this.displayProfiles()}
-    </div>
+    if (this.props.user !== undefined) {
+      return (this.props.selectedUser !== undefined)?
+      (<Redirect to="/profile" /> )
+      : (
+      <div id="find" className="row">
+        {this.displayProfiles()}
+      </div>
 
-    )
+      )
+    } else { return <Redirect to="/" />}
   }
 }
 

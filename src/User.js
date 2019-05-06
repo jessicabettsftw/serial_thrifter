@@ -27,9 +27,10 @@ class User extends Component {
       bio: "",
       image: ""
     }
-    this.getFinds()
-    this.getLikedFinds()
-    console.log()
+    if (this.props.user !== undefined) {
+      this.getFinds()
+      this.getLikedFinds()
+    }
   }
 
   EditUser = () => {
@@ -169,8 +170,8 @@ class User extends Component {
               <textarea onChange={(event) => this.changingForm(event)} className="form-control" name="bio" id="bioInput" placeholder="Enter Bio" rows="3" value={this.state.bio}></textarea>
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Photo</label>
-              <input onChange={(event) => this.changingForm(event)} name="photo" className="form-control" id="photoInput" placeholder="Enter Photo URL" value={this.state.image}/>
+              <label for="exampleInputEmail1">Image</label>
+              <input onChange={(event) => this.changingForm(event)} name="image" className="form-control" id="imageInput" placeholder="Enter Photo URL" value={this.state.image}/>
             </div>
             <button type="submit" className="btn btn-primary">Save</button>
           </form>
@@ -184,7 +185,7 @@ class User extends Component {
     let bio = event.target.elements['bio'].value
     let email = event.target.elements['email'].value
     let password = event.target.elements['password'].value
-    //let image = event.target.elements['photo'].value
+    let image = event.target.elements['image'].value
     let zip = event.target.elements['zip'].value
 
     // console.log(bio)
@@ -204,7 +205,7 @@ class User extends Component {
         "email": email,
         "bio": bio,
         "password": password,
-        "image": this.props.user.image,
+        "image": image,
         "zip": zip
       })})
       .then( res => res.json())
@@ -219,14 +220,14 @@ class User extends Component {
   }
 
   render(){
-    if (this.props.user){
+    if (this.props.user !== undefined){
     return (this.props.selectedFind !== undefined) ? (
       <Redirect to="/find" />
     ) : (
       <div className="">
         <div className="row">
           <div className="col sml-user-info">
-            <img className="lrg-profile-img float-right" src={this.props.user.image} alt="" />
+            <img className="lrg-profile-img float-right" src={this.state.image} alt="" />
           </div>
           <div className="col sml-user-info">
             {this.displayUser()}
@@ -243,7 +244,7 @@ class User extends Component {
         </div>
       </div>
 
-    )} else { return null }
+    )} else { return <Redirect to="/" /> }
   }
 }
 

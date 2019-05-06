@@ -79,31 +79,33 @@ class Profile extends Component {
     }
 
   render(){
-    return (this.props.selectedFind !== undefined) ? (
-      <Redirect to="/find" />
-    ) : ( (this.props.selectedUser === undefined)? (null): (
-      <div className="profile-area">
-        <div className="row">
-          <div className="col lrg-user-info">
-            <img className="lrg-profile-img float-right" src={this.props.selectedUser.image} alt="" />
+    if (this.props.user !== undefined) {
+      return (this.props.selectedFind !== undefined) ? (
+        <Redirect to="/find" />
+      ) : ( (this.props.selectedUser === undefined)? (null): (
+        <div className="profile-area">
+          <div className="row">
+            <div className="col lrg-user-info">
+              <img className="lrg-profile-img float-right" src={this.props.selectedUser.image} alt="" />
+            </div>
+            <div className="col lrg-user-info">
+              <p>{this.props.selectedUser.username} </p>
+              <p>{this.props.selectedUser.email} </p>
+              <p>{this.props.selectedUser.bio} </p>
+              <p>{this.props.selectedUser.zip} </p>
+            </div>
           </div>
-          <div className="col lrg-user-info">
-            <p>{this.props.selectedUser.username} </p>
-            <p>{this.props.selectedUser.email} </p>
-            <p>{this.props.selectedUser.bio} </p>
-            <p>{this.props.selectedUser.zip} </p>
+          <div className="row">
+            <div className="col">
+              <hr></hr>
+            </div>
+          </div>
+          <div className="row justify-content-center flex main-content">
+              {this.displayFinds()}
           </div>
         </div>
-        <div className="row">
-          <div className="col">
-            <hr></hr>
-          </div>
-        </div>
-        <div className="row justify-content-center flex main-content">
-            {this.displayFinds()}
-        </div>
-      </div>
-    ))
+      ))
+    } else { return <Redirect to ="/" />}
   }
 }
 

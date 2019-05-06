@@ -190,43 +190,45 @@ class Finds extends Component {
 
 
   render (){
-    return (this.props.selectedFind !== undefined) ? (
-      <Redirect to="/find" />
-    ) : (
-      <div>
-        <div className="">
-          <form onSubmit={(ev) => this.filterFinds(ev)} onChange={(event) => this.clearFilters(event)} className="finds-filters">
-            <div className="row form-inline justify-content-center">
-              <div className="col-2 form-check-inline">
-                <input className="form-check-input" name="myLocation" type="checkbox" value="" id="defaultCheck1" />
-                <label className="form-check-label text-secondary" >
-                  My Location
-                </label>
+    if (this.props.user !== undefined) {
+      return (this.props.selectedFind !== undefined) ? (
+        <Redirect to="/find" />
+      ) : (
+        <div>
+          <div className="">
+            <form onSubmit={(ev) => this.filterFinds(ev)} onChange={(event) => this.clearFilters(event)} className="finds-filters">
+              <div className="row form-inline justify-content-center">
+                <div className="col-2 form-check-inline">
+                  <input className="form-check-input" name="myLocation" type="checkbox" value="" id="defaultCheck1" />
+                  <label className="form-check-label text-secondary" >
+                    My Location
+                  </label>
+                </div>
+                <div className="col">
+                  <input type="text" className="form-control" name="brandInput" placeholder="Brand:"/>
+                </div>
+                <div className="col">
+                    <select name="priceInput" className="form-control text-secondary">
+                      <option value="">Less Than:</option>
+                      <option value="100">$100</option>
+                      <option value="50">$50</option>
+                      <option value="25">$25</option>
+                      <option value="15">$15</option>
+                      <option value="5">$5</option>
+                    </select>
+                </div>
+                <div className="col">
+                   <button type="submit" className="btn btn-primary button">Submit</button>
+                </div>
               </div>
-              <div className="col">
-                <input type="text" className="form-control" name="brandInput" placeholder="Brand:"/>
-              </div>
-              <div className="col">
-                  <select name="priceInput" className="form-control text-secondary">
-                    <option value="">Less Than:</option>
-                    <option value="100">$100</option>
-                    <option value="50">$50</option>
-                    <option value="25">$25</option>
-                    <option value="15">$15</option>
-                    <option value="5">$5</option>
-                  </select>
-              </div>
-              <div className="col">
-                 <button type="submit" className="btn btn-primary button">Submit</button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
+          <div className="row justify-content-center flex main-content">
+              {this.displayFinds()}
+          </div>
         </div>
-        <div className="row justify-content-center flex main-content">
-            {this.displayFinds()}
-        </div>
-      </div>
-    );
+      );
+    } else { return <Redirect to="/" />}
   }
 }
 export default Finds;

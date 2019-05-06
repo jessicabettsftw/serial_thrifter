@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const mapStyles = {
@@ -113,59 +114,61 @@ export class MapContainer extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="row justify-content-center map-filters">
-          <form onSubmit={(ev) => this.handleSubmit(ev)}>
-            <div className="form-row">
-              <div className="col-5">
-                <input type="text" className="form-control" name="cityInput" placeholder="City & State:"/>
+    if (this.props.user !== undefined) {
+      return (
+        <div>
+          <div className="row justify-content-center map-filters">
+            <form onSubmit={(ev) => this.handleSubmit(ev)}>
+              <div className="form-row">
+                <div className="col-5">
+                  <input type="text" className="form-control" name="cityInput" placeholder="City & State:"/>
+                </div>
+                <div className="col form-check-inline">
+                  <input className="form-check-input" name="myLocation" type="checkbox" onChange={(ev) => this.clearForm(ev)} value="" id="defaultCheck1" />
+                  <label className="form-check-label text-secondary" for="myLocation">
+                    My Location
+                  </label>
+                </div>
+                <div className="col">
+                   <button type="submit" className="btn btn-primary button">Submit</button>
+                </div>
               </div>
-              <div className="col form-check-inline">
-                <input className="form-check-input" name="myLocation" type="checkbox" onChange={(ev) => this.clearForm(ev)} value="" id="defaultCheck1" />
-                <label className="form-check-label text-secondary" for="myLocation">
-                  My Location
-                </label>
-              </div>
-              <div className="col">
-                 <button type="submit" className="btn btn-primary button">Submit</button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div className="row justify-content-center">
-          <div className="col-2 text-align-left lrg-info">
-            <p>
-              Name: {this.state.clickedStore.name}
-            </p>
-            <p>
-              Address: {(this.state.clickedStore.location !== undefined ) ? this.state.clickedStore.location.display_address : null}
-            </p>
-            <p>
-              Phone: {this.state.clickedStore.display_phone}
-            </p>
-            <p>
-              Rating: {this.state.clickedStore.rating}
-            </p>
+            </form>
           </div>
-          {/*<div className="col-2 ">
-            <ul className="stores-list">
-              {this.displayStores()}
-            </ul>
-          </div>*/}
-        <div className="col-3">
-          <Map
-            google={this.props.google}
-            zoom={9}
-            style={mapStyles}
-            center={this.state.centerPoint}
-          >
-          {this.displayMarkers()}
-          </Map>
+          <div className="row justify-content-center">
+            <div className="col-2 text-align-left lrg-info">
+              <p>
+                Name: {this.state.clickedStore.name}
+              </p>
+              <p>
+                Address: {(this.state.clickedStore.location !== undefined ) ? this.state.clickedStore.location.display_address : null}
+              </p>
+              <p>
+                Phone: {this.state.clickedStore.display_phone}
+              </p>
+              <p>
+                Rating: {this.state.clickedStore.rating}
+              </p>
+            </div>
+            {/*<div className="col-2 ">
+              <ul className="stores-list">
+                {this.displayStores()}
+              </ul>
+            </div>*/}
+          <div className="col-3">
+            <Map
+              google={this.props.google}
+              zoom={9}
+              style={mapStyles}
+              center={this.state.centerPoint}
+            >
+            {this.displayMarkers()}
+            </Map>
+          </div>
         </div>
-      </div>
-      </div>
-    );
+        </div>
+      );
+    } else { return <Redirect to="/" />}
   }
 }
 

@@ -125,49 +125,51 @@ class UploadFind extends Component {
   }
 
   render(){
-    return (this.state.redirect === true) ? (<Redirect to="/user" />)
-    :(
-      <div id="find" className="row justify-content-center">
-        <div className="col lrg-poloroid justify-content-center">
-            {(this.state.img !== undefined)? <img src={this.state.img} alt="find" className="lrg-poloroid-img"/> : null}
-        </div>
-        <div className="col lrg-info overflow-auto">
-        <form onSubmit={(ev) => this.handleSubmit(ev)}>
-            {/*
+    if (this.props.user !== undefined) {
+      return (this.state.redirect === true) ? (<Redirect to="/user" />)
+      :(
+        <div id="find" className="row justify-content-center">
+          <div className="col lrg-poloroid justify-content-center">
+              {(this.state.img !== undefined)? <img src={this.state.img} alt="find" className="lrg-poloroid-img"/> : null}
+          </div>
+          <div className="col lrg-info overflow-auto">
+          <form onSubmit={(ev) => this.handleSubmit(ev)}>
+              {/*
+                <label >Photo</label>
+                <input type="file" className="form-control-file" name="photoInput" onChange={(event) => this.updatePhoto(event)}/>
+                */}
+            <div className="form-group">
               <label >Photo</label>
-              <input type="file" className="form-control-file" name="photoInput" onChange={(event) => this.updatePhoto(event)}/>
-              */}
-          <div className="form-group">
-            <label >Photo</label>
-            <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" />
+              <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" />
+            </div>
+            <div className="form-group">
+              <label >Price</label>
+              <input name="price" className="form-control" id="priceInput" placeholder="enter price" />
+            </div>
+            <div className="form-group">
+              <label >Brand</label>
+              <input name="brand" className="form-control" id="brandInput" placeholder="enter brand" />
+            </div>
+            <div className="form-group">
+              <label >Description</label>
+              <textarea className="form-control" name="description" id="descriptionInput" placeholder="enter description" rows="3"></textarea>
+            </div>
+            <div className="form-group">
+              <label >Store City & State</label>
+              <input onBlur={(event) => this.getStores(event)} type="text" className="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"/>
+            </div>
+            <select onChange={(ev) => this.setStore(ev)} name="store" className="form-group custom-select">
+              <option >Choose a Store</option>
+              {this.showStores()}
+            </select>
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
           </div>
-          <div className="form-group">
-            <label >Price</label>
-            <input name="price" className="form-control" id="priceInput" placeholder="enter price" />
-          </div>
-          <div className="form-group">
-            <label >Brand</label>
-            <input name="brand" className="form-control" id="brandInput" placeholder="enter brand" />
-          </div>
-          <div className="form-group">
-            <label >Description</label>
-            <textarea className="form-control" name="description" id="descriptionInput" placeholder="enter description" rows="3"></textarea>
-          </div>
-          <div className="form-group">
-            <label >Store City & State</label>
-            <input onBlur={(event) => this.getStores(event)} type="text" className="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"/>
-          </div>
-          <select onChange={(ev) => this.setStore(ev)} name="store" className="form-group custom-select">
-            <option >Choose a Store</option>
-            {this.showStores()}
-          </select>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
+
         </div>
 
-      </div>
-
-    )
+      )
+    } else {return <Redirect to="/" />}
   }
 }
 
