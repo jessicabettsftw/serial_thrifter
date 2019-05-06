@@ -59,7 +59,7 @@ class Signup extends Component {
           alert(data.error)
         } else if (data.user){
           localStorage.setItem('jwt', data.jwt)
-          this.props.setUser(data.user)
+          this.props.setUser(data.user.users)
         }
       })
   }

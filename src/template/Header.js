@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const Header = props => {
   return (
@@ -8,11 +9,11 @@ const Header = props => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           {props.user ?
           <div className="navbar-nav links">
-            <a className="nav-item nav-link" href="/">Home</a>
-            <a className="nav-item nav-link" href="/finds">Finds</a>
-            <a className="nav-item nav-link" href="/stores">Stores</a>
-            <a className="nav-item nav-link" href="/upload-find">Upload Find</a>
-            <a className="nav-item nav-link" href="/user"><img className="avatar" src={props.user.image} alt="user" /></a>
+            <Link className="nav-item nav-link" to='/'>Home</Link>
+            <Link className="nav-item nav-link" to='/stores'>Stores</Link>
+            <Link className="nav-item nav-link" to='/finds'>Finds</Link>
+            <Link className="nav-item nav-link" to='/upload-find'>Upload Find</Link>
+            <Link className="nav-item nav-link" to='/user'><img className="avatar" src={props.user.image} alt="user" /></Link>
           </div>
           : null}
         </div>

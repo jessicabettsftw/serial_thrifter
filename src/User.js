@@ -5,8 +5,8 @@ import FindPoloroid from "./FindPoloroid"
 class User extends Component {
   constructor(props){
     super(props)
-
-    this.state = {
+    console.log(this.props)
+    this.state = this.props.user ? {
       display: "finds",
       userDisplay: "show",
       myFinds: [],
@@ -16,9 +16,19 @@ class User extends Component {
       zip: this.props.user.zip,
       bio: this.props.user.bio,
       image: this.props.user.image
+    } : {
+      display: "finds",
+      userDisplay: "show",
+      myFinds: [],
+      myLikedFinds: [],
+      email: "",
+      password: "",
+      zip: "",
+      bio: "",
+      image: ""
     }
-    this.getFinds()
-    this.getLikedFinds()
+    //this.getFinds()
+    //this.getLikedFinds()
     console.log()
   }
 
@@ -190,6 +200,7 @@ class User extends Component {
   }
 
   render(){
+    if (this.props.user){
     return (this.props.selectedFind !== undefined) ? (
       <Redirect to="/find" />
     ) : (
@@ -213,7 +224,7 @@ class User extends Component {
         </div>
       </div>
 
-    )
+    )} else { return null }
   }
 }
 

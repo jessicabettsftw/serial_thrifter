@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 class Find extends Component {
   constructor(props){
     super(props)
+    console.log(this.props)
     this.state = {
       store: {},
       poster: {},
@@ -31,19 +32,33 @@ class Find extends Component {
 
   getNumLikes = () => {
     //console.log(this.props.find.id)
+    let jwt = localStorage.getItem('jwt')
     let url = `http://localhost:3000/likes/find/${this.props.find.id}`
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }})
     .then(res => res.json())
     .then(data => {
       //console.log("num likes", data.likes.length)
-      this.setState({numLikes: data.likes.length})
+      if (data.likes) {
+        this.setState({numLikes: data.likes.length})
+      } else {
+        this.setState({numLikes: 0})
+      }
     })
   }
 
   getStore = () => {
     //console.log(this.props.find.store_id)
+    let jwt = localStorage.getItem('jwt')
     let url = `http://localhost:3000/stores/${this.props.find.store_id}`
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }})
     .then(res => res.json())
     .then(data => {
       this.setState({store: data})
@@ -53,12 +68,14 @@ class Find extends Component {
   likeFind = (findId) => {
     console.log("liking")
     if (this.isLiked(findId) === false){
+      let jwt = localStorage.getItem('jwt')
       let url = "http://localhost:3000/likes"
       fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Accept": "application/json",
+          'Authorization': 'Bearer ' + jwt
         },
         body: JSON.stringify({
           "user_id": this.props.user.id,
@@ -73,16 +90,25 @@ class Find extends Component {
 
     unlikeFind = (findId) => {
       if (this.isLiked(findId)){
+        let jwt = localStorage.getItem('jwt')
         let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
         fetch(url, {
-          method: "DELETE"})
+          method: "DELETE",
+          headers: {
+              'Authorization': 'Bearer ' + jwt
+          }})
           .then( this.props.removeLike(findId))
         }
     }
 
     getUserAvatar = (userId) => {
+      let jwt = localStorage.getItem('jwt')
       let url = `http://localhost:3000/users/${userId}`
-      return fetch(url)
+      return fetch(url, {
+        method: "GET",
+        headers: {
+            'Authorization': 'Bearer ' + jwt
+        }})
       .then(res => res.json())
       .then(data => {
         this.setState({poster: data})

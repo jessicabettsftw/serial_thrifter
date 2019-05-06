@@ -20,12 +20,17 @@ export class MapContainer extends Component {
 
   getStores = (location) => {
     let url = ""
-    if ((typeof location) === "string") {
-      url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&location=${location}&limit=30&radius=20000`
+    if (location !== "") {
+      if ((typeof location) === "string") {
+        url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&location=${location}&limit=30&radius=20000`
+      } else {
+        url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&longitude=${location.lng}&latitude=${location.lat}&limit=30&radius=20000`
+      }
     } else {
-      url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&longitude=${location.lng}&latitude=${location.lat}&limit=30&radius=20000`
-
+      url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=thrift_store&location=seattle&limit=30&radius=20000`
     }
+
+
 
     fetch(url, {
       'headers': {
@@ -40,7 +45,7 @@ export class MapContainer extends Component {
   }
 
   findCenterPoint = (data) => {
-    //console.log(data.businesses)
+    if (data.businesses !== undefined){
       let latitude = 0
       let longitude = 0
       data.businesses.forEach(store => {
@@ -50,6 +55,11 @@ export class MapContainer extends Component {
       let avgLat = latitude / data.businesses.length
       let avgLong = longitude / data.businesses.length
       return {lat: avgLat, lng: avgLong}
+    } else {
+      return {lat: 122.00, lng: 123.00}
+    }
+    //console.log(data.businesses)
+
   }
 
   getStoreInfo = (obj) => {
@@ -70,13 +80,15 @@ export class MapContainer extends Component {
   }
 
   displayMarkers = () => {
-    return this.state.stores.map((store, index) => {
-      return <Marker key={index} id={index} position={{
-       lat: store.coordinates.latitude,
-       lng: store.coordinates.longitude
-     }}
-     onClick={(obj) => this.getStoreInfo(obj.id)} />
-    })
+    if (this.state.stores !== undefined){
+      return this.state.stores.map((store, index) => {
+        return <Marker key={index} id={index} position={{
+         lat: store.coordinates.latitude,
+         lng: store.coordinates.longitude
+       }}
+       onClick={(obj) => this.getStoreInfo(obj.id)} />
+      })
+    }
   }
 
   displayStores = () => {

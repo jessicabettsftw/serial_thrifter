@@ -38,7 +38,11 @@ class Finds extends Component {
   }
 
   isLiked = (find_id) => {
-    return this.props.likes.map(find => find.find_id).includes(find_id)
+    if (this.props.likes !== undefined){
+      return this.props.likes.map(find => find.find_id).includes(find_id)
+    } else {
+      return []
+    }
   }
 
   displayFinds = () => {
