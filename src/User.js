@@ -155,23 +155,23 @@ class User extends Component {
           <form onSubmit={(ev) => this.handleSubmit(ev)}>
             <div className="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input onChange={(event) => this.changingForm(event)} name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" value={this.state.email}/>
+              <input onChange={(event) => this.changingForm(event)} name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" value={this.state.email} required/>
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input onChange={(event) => this.changingForm(event)} name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={this.state.password}/>
+              <input onChange={(event) => this.changingForm(event)} name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={this.state.password} required/>
             </div>
             <div className="form-group" >
               <label for="exampleInputEmail1">Zip</label>
-              <input onChange={(event) => this.changingForm(event)} name="zip" type="zip" className="form-control" id="zipInput" placeholder="Enter Zip" value={this.state.zip}/>
+              <input onChange={(event) => this.changingForm(event)} name="zip" type="zip" className="form-control" id="zipInput" placeholder="Enter Zip" value={this.state.zip} required/>
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Bio</label>
-              <textarea onChange={(event) => this.changingForm(event)} className="form-control" name="bio" id="bioInput" placeholder="Enter Bio" rows="3" value={this.state.bio}></textarea>
+              <textarea onChange={(event) => this.changingForm(event)} className="form-control" name="bio" id="bioInput" placeholder="Enter Bio" rows="3" value={this.state.bio} required></textarea>
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Image</label>
-              <input onChange={(event) => this.changingForm(event)} name="image" className="form-control" id="imageInput" placeholder="Enter Photo URL" value={this.state.image}/>
+              <input onChange={(event) => this.changingForm(event)} name="image" className="form-control" id="imageInput" placeholder="Enter Photo URL" value={this.state.image} required/>
             </div>
             <button type="submit" className="btn btn-primary">Save</button>
           </form>

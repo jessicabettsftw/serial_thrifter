@@ -194,15 +194,15 @@ class Find extends Component {
                 */}
             <div className="form-group">
               <label for="exampleInputEmail1">Price</label>
-              <input onChange={(event) => this.changingForm(event)} name="price" className="form-control" id="priceInput" placeholder="enter price" value={this.state.price}/>
+              <input onChange={(event) => this.changingForm(event)} name="price" className="form-control" id="priceInput" placeholder="enter price" value={this.state.price} required/>
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Brand</label>
-              <input onChange={(event) => this.changingForm(event)} name="brand" className="form-control" id="brandInput" placeholder="enter brand" value={this.state.brand}/>
+              <input onChange={(event) => this.changingForm(event)} name="brand" className="form-control" id="brandInput" placeholder="enter brand" value={this.state.brand} required/>
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Description</label>
-              <textarea onChange={(event) => this.changingForm(event)} class="form-control" name="description" id="descriptionInput" placeholder="enter description" value={this.state.description} rows="3"></textarea>
+              <textarea onChange={(event) => this.changingForm(event)} class="form-control" name="description" id="descriptionInput" placeholder="enter description" value={this.state.description} rows="3" required></textarea>
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>

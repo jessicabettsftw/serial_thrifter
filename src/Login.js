@@ -49,11 +49,11 @@ class Login extends Component {
       <form onSubmit={(ev) => this.handleSubmit(ev)}>
         <div className="form-group">
           <label >Username</label>
-          <input name="username" type="username" className="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp" placeholder="Enter email" />
+          <input name="username" type="username" className="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp" placeholder="Enter email" required/>
         </div>
         <div className="form-group">
           <label >Password</label>
-          <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+          <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" required/>
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>

@@ -76,19 +76,19 @@ class Signup extends Component {
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
           <div className="form-group" >
             <label for="exampleInputEmail1">Username</label>
-            <input name="username" type="username" className="form-control" id="usernameInput" placeholder="Enter Username" />
+            <input name="username" type="username" className="form-control" id="usernameInput" placeholder="Enter Username" required/>
           </div>
           <div className="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" />
+            <input name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" required/>
           </div>
           <div className="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input name="password" type="password" className="form-control" placeholder="Password" />
+            <input name="password" type="password" className="form-control" placeholder="Password" required/>
           </div>
           <div className="form-group">
             <label for="exampleInputEmail1">Photo</label>
-            <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" />
+            <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" required/>
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>

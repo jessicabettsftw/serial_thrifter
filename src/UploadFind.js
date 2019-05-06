@@ -115,6 +115,7 @@ class UploadFind extends Component {
     .then(resp => resp.json())
     .then(data => {
       console.log(data)
+      document.getElementById("store").disabled = false
       this.setState({stores: data.businesses})
     })
   }
@@ -140,27 +141,28 @@ class UploadFind extends Component {
                 */}
             <div className="form-group">
               <label >Photo</label>
-              <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" />
+              <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" required/>
             </div>
             <div className="form-group">
               <label >Price</label>
-              <input name="price" className="form-control" id="priceInput" placeholder="enter price" />
+              <input name="price" className="form-control" id="priceInput" placeholder="enter price" required/>
             </div>
             <div className="form-group">
               <label >Brand</label>
-              <input name="brand" className="form-control" id="brandInput" placeholder="enter brand" />
+              <input name="brand" className="form-control" id="brandInput" placeholder="enter brand" required/>
             </div>
             <div className="form-group">
               <label >Description</label>
-              <textarea className="form-control" name="description" id="descriptionInput" placeholder="enter description" rows="3"></textarea>
+              <textarea className="form-control" name="description" id="descriptionInput" placeholder="enter description" rows="3" required></textarea>
             </div>
             <div className="form-group">
               <label >Store City & State</label>
-              <input onBlur={(event) => this.getStores(event)} type="text" className="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3"/>
+              <input onBlur={(event) => this.getStores(event)} type="text" className="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3" required/>
             </div>
-            <select onChange={(ev) => this.setStore(ev)} name="store" className="form-group custom-select">
+            <select disabled onChange={(ev) => this.setStore(ev)} name="store" id="store" className="form-group custom-select" required>
               <option >Choose a Store</option>
               {this.showStores()}
+              <option value="0">None of these</option>
             </select>
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
