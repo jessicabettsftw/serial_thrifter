@@ -41,45 +41,44 @@ class Signup extends Component {
     console.log(password)
     console.log(image)
     let url = "http://localhost:3000/users"
-    // fetch( url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Accept": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     "username": username,
-    //     "email": email,
-    //     "password": password,
-    //     "image": this.state.img
-    //   })})
-    //   .then( res => {
-    //     if (res.status === 200){
-    //       localStorage.setItem('Authorized', true);
-    //       localStorage.setItem('UserId', res.json().id);
-    //       this.setState({redirect: true})
-    //     }
-    //   })
-
-    fetch('http://localhost:3000/users', {
-      method: 'POST',
+    fetch( url, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        "Content-Type": "application/json",
+        "Accept": "application/json"
       },
       body: JSON.stringify({
         user: {
-          username: 'turkey pudding',
-          email: 'vald@email.com',
-          password: 'hi',
-          zip: '98010',
-          bio: 'King of Flavortown, USA',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Guy_Fieri_at_Guantanamo_2.jpg'
+          "username": username,
+          "email": email,
+          "password": password,
+          "zip": '98010',
+          "bio": "i like cats",
+          "image": this.state.img
         }
-      })
-    })
-      .then(r => r.json())
+      })})
+      .then( res => res.json())
       .then(data => console.log(data))
+
+    // fetch('http://localhost:3000/users', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     user: {
+    //       username: 'turkey pudding',
+    //       email: 'vald@email.com',
+    //       password: 'hi',
+    //       zip: '98010',
+    //       bio: 'King of Flavortown, USA',
+    //       image: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Guy_Fieri_at_Guantanamo_2.jpg'
+    //     }
+    //   })
+    // })
+    //   .then(r => r.json())
+    //   .then(data => console.log(data))
   }
 
   render(){
