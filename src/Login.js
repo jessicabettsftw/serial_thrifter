@@ -32,12 +32,17 @@ class Login extends Component {
       })})
       .then( res => res.json())
       .then(data => {
-        console.log(data)
+        if (data.message) {
+          alert(data.message)
+        } else if (data.user){
+          localStorage.setItem('jwt', data.jwt)
+          this.props.setUser(data.user.users)
+        }
       })
   }
 
   render(){
-    return (this.state.redirect === true)?
+    return (this.props.user !== undefined)?
     (<Redirect to="/finds" /> )
     : (
       <div >

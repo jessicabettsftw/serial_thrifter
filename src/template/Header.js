@@ -6,6 +6,7 @@ const Header = props => {
       <h1 className="title" href="#">serial thrifter</h1>
       <nav className="navbar navbar-expand-lg">
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          {props.user ?
           <div className="navbar-nav links">
             <a className="nav-item nav-link" href="/">Home</a>
             <a className="nav-item nav-link" href="/finds">Finds</a>
@@ -13,6 +14,7 @@ const Header = props => {
             <a className="nav-item nav-link" href="/upload-find">Upload Find</a>
             <a className="nav-item nav-link" href="/user"><img className="avatar" src={props.user.image} alt="user" /></a>
           </div>
+          : null}
         </div>
       </nav>
 

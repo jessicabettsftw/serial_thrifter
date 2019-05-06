@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import converse from "./images/lrg-Converse.png"
-import notLiked from "./images/flame.png"
 
 class UploadFind extends Component {
   constructor(props){

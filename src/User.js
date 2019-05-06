@@ -157,7 +157,7 @@ class User extends Component {
     let bio = event.target.elements['bio'].value
     let email = event.target.elements['email'].value
     let password = event.target.elements['password'].value
-    let image = event.target.elements['photo'].value
+    //let image = event.target.elements['photo'].value
     let zip = event.target.elements['zip'].value
 
     // console.log(bio)

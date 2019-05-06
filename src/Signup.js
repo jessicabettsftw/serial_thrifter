@@ -6,8 +6,7 @@ class Signup extends Component {
     super(props)
 
     this.state = {
-      img: undefined,
-      redirect: false
+      img: undefined
     }
   }
 
@@ -51,39 +50,22 @@ class Signup extends Component {
           "username": username,
           "email": email,
           "password": password,
-          "zip": '98010',
-          "bio": "i like cats",
           "image": image
         }
       })})
       .then( res => res.json())
       .then(data => {
-        console.log(data)
+        if (data.error) {
+          alert(data.error)
+        } else if (data.user){
+          localStorage.setItem('jwt', data.jwt)
+          this.props.setUser(data.user)
+        }
       })
-
-    // fetch('http://localhost:3000/users', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     user: {
-    //       username: 'turkey pudding',
-    //       email: 'vald@email.com',
-    //       password: 'hi',
-    //       zip: '98010',
-    //       bio: 'King of Flavortown, USA',
-    //       image: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Guy_Fieri_at_Guantanamo_2.jpg'
-    //     }
-    //   })
-    // })
-    //   .then(r => r.json())
-    //   .then(data => console.log(data))
   }
 
   render(){
-    return (this.state.redirect === true)?
+    return (this.props.user !== undefined)?
     (<Redirect to="/finds" /> )
     : (
     <div id="find" className="row justify-content-center">

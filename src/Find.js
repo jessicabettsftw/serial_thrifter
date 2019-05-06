@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import converse from "./images/lrg-Converse.png"
 import notLiked from "./images/flame.png"
 import { Redirect } from "react-router-dom";
 

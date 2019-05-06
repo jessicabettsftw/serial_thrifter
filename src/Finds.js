@@ -19,9 +19,17 @@ class Finds extends Component {
 
   getFinds = () => {
     let url = "http://localhost:3000/finds"
-    fetch(url)
+    let jwt = localStorage.getItem('jwt')
+    console.log(jwt)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }
+    })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       this.setState({
         filteredFinds: data.finds,
         finds: data.finds
@@ -34,10 +42,12 @@ class Finds extends Component {
   }
 
   displayFinds = () => {
+    if (this.state.filteredFinds) {
       return this.state.filteredFinds.map((find, index) => {
         let liked = this.isLiked(find.id)
         return <FindPoloroid selectFind={(id) => this.props.selectFind(id)} key={index} isLiked={liked} find={find} unlikeFind={(id) => this.unlikeFind(id)} likeFind={(id) => this.likeFind(id)}/>
       })
+    }
   }
 
   brandFilter = (finds, brand) => {
@@ -76,8 +86,14 @@ class Finds extends Component {
   }
 
   getStores = () => {
+    let jwt = localStorage.getItem('jwt')
     let url = "http://localhost:3000/stores"
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }
+    })
     .then(res => res.json())
     .then(data => {
       this.setState({stores: data.stores, filteredStores: data.stores})

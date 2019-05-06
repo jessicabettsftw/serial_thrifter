@@ -18,17 +18,28 @@ class App extends Component {
 
     this.state = {
     //  user: {"id":1,"username":"jekka","password":"cats","email":"jessiaannbettsis@gmail.com","zip":"98010","bio":"i like cats","image":"https://scontent-ort2-2.cdninstagram.com/vp/2caa24e5ad88e58c012a04550cdc8493/5D7082B4/t51.2885-15/e35/52909898_2312312622424463_8539354381621977442_n.jpg?_nc_ht=scontent-ort2-2.cdninstagram.com","created_at":"2019-05-02T23:59:49.207Z","updated_at":"2019-05-03T00:18:00.628Z"},
-      user: {},
+      user: undefined,
       likes: [],
       selectedFind: undefined,
       selectedUser: undefined
     }
-    this.getLikes()
+
+  }
+
+  componentDidUpdate(){
+    if (this.state.user.id !== undefined){
+      this.getLikes()
+    }
   }
 
   getLikes = () => {
+    let jwt = localStorage.getItem('jwt')
     let url = `http://localhost:3000/likes/user/${this.state.user.id}`
-    fetch(url)
+    fetch(url, {
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }
+    })
     .then(res => res.json())
     .then(data => {
       this.setState({likes: data.likes})
@@ -64,6 +75,7 @@ class App extends Component {
   }
 
   setUser = (user) => {
+    console.log(user)
     this.setState({user: user})
   }
 
