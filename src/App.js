@@ -9,7 +9,8 @@ import Find from "./Find";
 import Home from "./Home";
 import User from "./User";
 import Profile from "./Profile";
-import Profiles from "./Profiles"
+import Profiles from "./Profiles";
+import Photos from "./Photos";
 import Header from "./template/Header";
 
 class App extends Component {
@@ -100,6 +101,7 @@ class App extends Component {
             <Header user={this.state.user}/>
             <Switch>
               <Route exact path="/" component={() => <Home />}/>
+              <Route path="/photos" component={() => <Photos/>}/>
               <Route path="/signup" component={() => <Signup user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/login" component={() => <Login user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/stores" component={() => <GoogleMap selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
