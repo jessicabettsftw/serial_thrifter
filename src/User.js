@@ -11,7 +11,6 @@ class User extends Component {
       userDisplay: "show",
       myFinds: [],
       myLikedFinds: [],
-      email: this.props.user.email,
       zip: this.props.user.zip,
       bio: this.props.user.bio,
       image: this.props.user.image
@@ -20,7 +19,6 @@ class User extends Component {
       userDisplay: "show",
       myFinds: [],
       myLikedFinds: [],
-      email: "",
       zip: "",
       bio: "",
       image: ""
@@ -140,7 +138,6 @@ class User extends Component {
       return (
         <div>
           <p>{this.props.user.username} </p>
-          <p>{this.props.user.email} </p>
           <p>{this.props.user.bio} </p>
           <p>{this.props.user.zip} </p>
           <button className="btn btn-primary" onClick={() => this.EditUser()}>Edit</button>
@@ -151,10 +148,6 @@ class User extends Component {
       return (
         <div>
           <form onSubmit={(ev) => this.handleSubmit(ev)}>
-            <div className="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input onChange={(event) => this.changingForm(event)} name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" value={this.state.email} required/>
-            </div>
             <div className="form-group" >
               <label for="exampleInputEmail1">Zip</label>
               <input onChange={(event) => this.changingForm(event)} name="zip" type="zip" className="form-control" id="zipInput" placeholder="Enter Zip" value={this.state.zip} required/>
@@ -177,7 +170,6 @@ class User extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     let bio = event.target.elements['bio'].value
-    let email = event.target.elements['email'].value
     let image = event.target.elements['image'].value
     let zip = event.target.elements['zip'].value
 
@@ -195,7 +187,6 @@ class User extends Component {
         'Authorization': 'Bearer ' + jwt
       },
       body: JSON.stringify({
-        "email": email,
         "bio": bio,
         "image": image,
         "zip": zip

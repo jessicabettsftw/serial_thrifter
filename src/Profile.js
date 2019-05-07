@@ -90,9 +90,7 @@ class Profile extends Component {
             </div>
             <div className="col lrg-user-info">
               <p>{this.props.selectedUser.username} </p>
-              <p>{this.props.selectedUser.email} </p>
               <p>{this.props.selectedUser.bio} </p>
-              <p>{this.props.selectedUser.zip} </p>
             </div>
           </div>
           <div className="row">
