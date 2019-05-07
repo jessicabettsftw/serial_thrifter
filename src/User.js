@@ -12,7 +12,6 @@ class User extends Component {
       myFinds: [],
       myLikedFinds: [],
       email: this.props.user.email,
-      password: this.props.user.password,
       zip: this.props.user.zip,
       bio: this.props.user.bio,
       image: this.props.user.image
@@ -22,7 +21,6 @@ class User extends Component {
       myFinds: [],
       myLikedFinds: [],
       email: "",
-      password: "",
       zip: "",
       bio: "",
       image: ""
@@ -157,10 +155,6 @@ class User extends Component {
               <label for="exampleInputEmail1">Email address</label>
               <input onChange={(event) => this.changingForm(event)} name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" value={this.state.email} required/>
             </div>
-            <div className="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input onChange={(event) => this.changingForm(event)} name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={this.state.password} required/>
-            </div>
             <div className="form-group" >
               <label for="exampleInputEmail1">Zip</label>
               <input onChange={(event) => this.changingForm(event)} name="zip" type="zip" className="form-control" id="zipInput" placeholder="Enter Zip" value={this.state.zip} required/>
@@ -184,7 +178,6 @@ class User extends Component {
     event.preventDefault()
     let bio = event.target.elements['bio'].value
     let email = event.target.elements['email'].value
-    let password = event.target.elements['password'].value
     let image = event.target.elements['image'].value
     let zip = event.target.elements['zip'].value
 
@@ -204,7 +197,6 @@ class User extends Component {
       body: JSON.stringify({
         "email": email,
         "bio": bio,
-        "password": password,
         "image": image,
         "zip": zip
       })})
