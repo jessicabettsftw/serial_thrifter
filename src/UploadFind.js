@@ -31,6 +31,36 @@ class UploadFind extends Component {
     console.log(photo)
     let jwt = localStorage.getItem('jwt')
     let url = "http://localhost:3000/stores/"
+    let body = ""
+    if (store !== undefined) {
+      body = {
+        'phone_number': store.display_phone,
+        'name': store.name,
+        'zip': store.location.zip_code,
+        'street': store.location.address1,
+        'city': store.location.city,
+        'state': store.location.state,
+        'country': store.location.country,
+        'latitude': store.coordinates.latitude,
+        'longitude': store.coordinates.longitude,
+        'rating': store.rating
+      }
+    } else {
+      body = {
+        'phone_number': 'N/A',
+        'name': 'N/A',
+        'zip': 'N/A',
+        'street': 'N/A',
+        'city': 'N/A',
+        'state': 'N/A',
+        'country': 'N/A',
+        'latitude': 0,
+        'longitude': 0,
+        'rating': 0
+      }
+    }
+
+
     fetch( url, {
       method: "POST",
       headers: {
@@ -38,18 +68,8 @@ class UploadFind extends Component {
           "Accept": "application/json",
           'Authorization': 'Bearer ' + jwt
         },
-        body: JSON.stringify({
-          'phone_number': store.display_phone,
-          'name': store.name,
-          'zip': store.location.zip_code,
-          'street': store.location.address1,
-          'city': store.location.city,
-          'state': store.location.state,
-          'country': store.location.country,
-          'latitude': store.coordinates.latitude,
-          'longitude': store.coordinates.longitude,
-          'rating': store.rating
-        })})
+        body: JSON.stringify(body)
+        })
         .then(res => res.json())
         .then(store => {
           console.log(store)
@@ -98,7 +118,7 @@ class UploadFind extends Component {
 
   showStores = () => {
     return this.state.stores.map((store, index) => {
-      return <option key={index} value={store.id}>{store.name}</option>
+      return <option key={index} value={store.id}>{store.name} - {store.location.city}, {store.location.address1}</option>
     })
   }
 
@@ -159,8 +179,8 @@ class UploadFind extends Component {
               <label >Store City & State</label>
               <input onBlur={(event) => this.getStores(event)} type="text" className="form-control" name="city" id="descriptionInput" placeholder="enter city & state" rows="3" required/>
             </div>
+            <label >Choose Store</label>
             <select disabled onChange={(ev) => this.setStore(ev)} name="store" id="store" className="form-group custom-select" required>
-              <option >Choose a Store</option>
               {this.showStores()}
               <option value="0">None of these</option>
             </select>
