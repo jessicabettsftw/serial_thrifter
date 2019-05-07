@@ -13,8 +13,13 @@ class Finds extends Component {
       stores: [],
       filteredStores: []
     }
-    this.getFinds()
-    this.getStores()
+    if (this.state.finds.length === 0){
+      this.getFinds()
+    }
+    if (this.state.stores.length === 0){
+      this.getStores()
+    }
+
   }
 
   getFinds = () => {
@@ -29,7 +34,7 @@ class Finds extends Component {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      //console.log(data)
       this.setState({
         filteredFinds: data.finds,
         finds: data.finds

@@ -24,6 +24,7 @@ class Profile extends Component {
       }})
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       this.setState({selectedUserFinds: data.finds})
     })
   }

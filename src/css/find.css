@@ -1,7 +1,6 @@
 .lrg-poloroid {
   height: 480px;
   width: 400px;
-  display: block;
   background-color: white;
   justify-content: center;
   font-family: 'Quattrocento', serif;
@@ -35,7 +34,6 @@
 }
 
 #find {
-  display: flex;
   margin: auto;
   justify-content: center;
   background-color: white;

@@ -19,6 +19,12 @@ export class MapContainer extends Component {
     this.getStores("kent washington")
   }
 
+  // componentDidMount() {
+  //   if ((this.props.selectedFind !== undefined) || (this.props.selectedUser !== undefined)){
+  //     this.props.clearSelects()
+  //   }
+  // }
+
   getStores = (location) => {
     let url = ""
     if (location !== "") {

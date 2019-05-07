@@ -3,5 +3,14 @@
   margin: auto;
   font-family: 'Quattrocento', serif;
   font-family: 'Unna', serif;
-  color: pink;
+  color: #565656;
+}
+
+#loginContainter {
+  margin-top: 5%;
+}
+
+.btn .styledButton {
+  background-color: orange;
+  color: white
 }

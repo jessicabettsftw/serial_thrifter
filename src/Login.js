@@ -45,19 +45,22 @@ class Login extends Component {
     return (this.props.user !== undefined)?
     (<Redirect to="/finds" /> )
     : (
-      <div >
-      <form onSubmit={(ev) => this.handleSubmit(ev)}>
-        <div className="form-group">
-          <label >Username</label>
-          <input name="username" type="username" className="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp" placeholder="Enter email" required/>
+      <div id="loginContainter">
+        <div className="signupForm">
+        <form onSubmit={(ev) => this.handleSubmit(ev)}>
+          <div className="form-group">
+            <label >Username</label>
+            <input name="username" type="username" className="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp" placeholder="Enter email" required/>
+          </div>
+          <div className="form-group">
+            <label >Password</label>
+            <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" required/>
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>
         </div>
-        <div className="form-group">
-          <label >Password</label>
-          <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" required/>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
       </div>
+
 
     )
   }

@@ -29,6 +29,12 @@ class User extends Component {
     }
   }
 
+  // componentDidMount() {
+  //   if ((this.props.selectedFind !== undefined) || (this.props.selectedUser !== undefined)){
+  //     this.props.clearSelects()
+  //   }
+  // }
+
   EditUser = () => {
     this.setState({userDisplay: "edit"})
   }

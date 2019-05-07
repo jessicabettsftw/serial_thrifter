@@ -17,7 +17,6 @@ class App extends Component {
     super()
 
     this.state = {
-    //  user: {"id":1,"username":"jekka","password":"cats","email":"jessiaannbettsis@gmail.com","zip":"98010","bio":"i like cats","image":"https://scontent-ort2-2.cdninstagram.com/vp/2caa24e5ad88e58c012a04550cdc8493/5D7082B4/t51.2885-15/e35/52909898_2312312622424463_8539354381621977442_n.jpg?_nc_ht=scontent-ort2-2.cdninstagram.com","created_at":"2019-05-02T23:59:49.207Z","updated_at":"2019-05-03T00:18:00.628Z"},
       user: undefined,
       likes: undefined,
       selectedFind: undefined,
@@ -44,6 +43,11 @@ class App extends Component {
       console.log(data)
       this.setState({likes: data.likes})
     })
+  }
+
+  clearSelects = () => {
+    this.setState({selectedFind: undefined,
+                   selectedUser: undefined})
   }
 
   addLike = (like) => {
@@ -98,13 +102,13 @@ class App extends Component {
               <Route exact path="/" component={() => <Home />}/>
               <Route path="/signup" component={() => <Signup user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/login" component={() => <Login user={this.state.user} setUser={this.setUser}/>}/>
-              <Route path="/stores" component={() => <GoogleMap user={this.state.user}/>}/>
-              <Route path="/finds" component={() => <Finds selectFind={(id) => this.selectFind(id)}  selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
+              <Route path="/stores" component={() => <GoogleMap selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
+              <Route path="/finds" component={() => <Finds clearSelects={this.clearSelects} selectFind={(id) => this.selectFind(id)}  selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
               <Route path="/find" component={() => <Find setFind={this.setFind} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser} user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
-              <Route path="/upload-find" component={() => <UploadFind user={this.state.user}/>}/>
-              <Route path="/user" component={() => <User setUser={this.setUser} user={this.state.user} likes={this.state.likes} selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} addLike={this.addLike} removeLike={this.removeLike} />}/>
-              <Route path="/profile" component={() => <Profile addLike={this.addLike} removeLike={this.removeLike} selectFind={(id) => this.selectFind(id)} likes={this.state.likes} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} user={this.state.user}/>} />
-              <Route to="/profiles" component={() => <Profiles user={this.state.user} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser}/>}/>
+              <Route path="/upload-find" component={() => <UploadFind selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
+              <Route path="/user" component={() => <User selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} setUser={this.setUser} user={this.state.user} likes={this.state.likes} selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} addLike={this.addLike} removeLike={this.removeLike} />}/>
+              <Route to="/profile" component={() => <Profile selectedFind={this.state.selectedFind} selectFind={(id) => this.selectFind(id)} user={this.state.user} selectedUser={this.state.selectedUser} likes={this.state.likes} addLike={this.addLike} removeLike={this.removeLike}/>}/>
+            <Route to="/profiles" component={() => <Profiles user={this.state.user} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser}/>}/>
             </Switch>
           </Router>
       </div>

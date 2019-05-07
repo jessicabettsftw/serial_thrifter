@@ -12,8 +12,13 @@ class UploadFind extends Component {
       redirect: false,
       selectedStore: undefined
     }
-
   }
+
+  // componentDidMount() {
+  //   if ((this.props.selectedFind !== undefined) || (this.props.selectedUser !== undefined)){
+  //     this.props.clearSelects()
+  //   }
+  // }
 
   handleSubmit = (event) => {
     event.preventDefault()

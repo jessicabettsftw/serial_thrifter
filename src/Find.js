@@ -15,10 +15,8 @@ class Find extends Component {
       redirect: false,
 
     }
-  }
-
-  componentDidMount(){
-    if (this.props.find !== undefined) {
+    if ((this.props.find !== undefined) && (this.props.selectedUser === undefined)){
+      console.log("doing it")
       this.getStore()
       this.getUserAvatar(this.props.find.user_id)
       this.getNumLikes()

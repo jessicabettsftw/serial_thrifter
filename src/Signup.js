@@ -68,11 +68,11 @@ class Signup extends Component {
     return (this.props.user !== undefined)?
     (<Redirect to="/finds" /> )
     : (
-    <div id="find" className="row justify-content-center">
-      <div className="col lrg-poloroid justify-content-center">
+    <div className="row justify-content-center flex">
+      <div className="col-4 lrg-poloroid justify-content-center">
           {(this.state.img !== undefined)? <img src={this.state.img} alt="find" className="lrg-poloroid-img"/> : null}
       </div>
-      <div className="col lrg-info">
+      <div className="col-4 lrg-info">
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
           <div className="form-group" >
             <label for="exampleInputEmail1">Username</label>
@@ -90,7 +90,7 @@ class Signup extends Component {
             <label for="exampleInputEmail1">Photo</label>
             <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" required/>
           </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="styledButton btn btn-primary">Submit</button>
         </form>
       </div>
       </div>
