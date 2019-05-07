@@ -108,9 +108,14 @@ export class MapContainer extends Component {
   }
 
   clearForm = (ev) => {
-    if (ev.target.checked){
-      document.getElementsByName('cityInput')[0].value = ""
+    if (ev.target.name === 'cityInput') {
+      document.getElementsByName('myLocation')[0].checked = false
+    } else {
+      if (ev.target.checked){
+        document.getElementsByName('cityInput')[0].value = ""
+      }
     }
+
   }
 
   render() {
@@ -121,7 +126,7 @@ export class MapContainer extends Component {
             <form onSubmit={(ev) => this.handleSubmit(ev)}>
               <div className="form-row">
                 <div className="col-5">
-                  <input type="text" className="form-control" name="cityInput" placeholder="City & State:"/>
+                  <input type="text" className="form-control" name="cityInput" placeholder="City & State:" onChange={(ev) => this.clearForm(ev)}/>
                 </div>
                 <div className="col form-check-inline">
                   <input className="form-check-input" name="myLocation" type="checkbox" onChange={(ev) => this.clearForm(ev)} value="" id="defaultCheck1" />

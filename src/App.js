@@ -98,7 +98,7 @@ class App extends Component {
               <Route exact path="/" component={() => <Home />}/>
               <Route path="/signup" component={() => <Signup user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/login" component={() => <Login user={this.state.user} setUser={this.setUser}/>}/>
-              <Route path="/stores" component={() => <GoogleMap />}/>
+              <Route path="/stores" component={() => <GoogleMap user={this.state.user}/>}/>
               <Route path="/finds" component={() => <Finds selectFind={(id) => this.selectFind(id)}  selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
               <Route path="/find" component={() => <Find setFind={this.setFind} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser} user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
               <Route path="/upload-find" component={() => <UploadFind user={this.state.user}/>}/>
