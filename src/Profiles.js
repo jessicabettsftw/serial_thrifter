@@ -15,7 +15,7 @@ class Profiles extends Component {
 
   getProfiles = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = "http://localhost:3000/users"
+    let url = "https://serialthrifterbackend.herokuapp.com/users"
     fetch(url, {
       method: 'GET',
       headers: {

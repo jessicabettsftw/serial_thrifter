@@ -30,7 +30,7 @@ class UploadFind extends Component {
     //console.log(city)
     console.log(photo)
     let jwt = localStorage.getItem('jwt')
-    let url = "http://localhost:3000/stores/"
+    let url = "https://serialthrifterbackend.herokuapp.com/stores/"
     let body = ""
     if (store !== undefined) {
       body = {
@@ -74,7 +74,7 @@ class UploadFind extends Component {
         .then(store => {
           console.log(store)
           let jwt = localStorage.getItem('jwt')
-          let url = "http://localhost:3000/finds"
+          let url = "https://serialthrifterbackend.herokuapp.com/finds"
           fetch(url, {
             method: "POST",
             headers: {
