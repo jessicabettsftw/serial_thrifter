@@ -63,8 +63,8 @@ class Signup extends Component {
     return (this.props.user !== undefined)?
     (<Redirect to="/finds" /> )
     : (
-    <div className="row justify-content-center flex">
-      <div className="col-4 lrg-info">
+    <div id="loginContainter" className="row justify-content-center flex">
+      <div className="signupForm">
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
           <div className="form-group" >
             <label for="exampleInputEmail1">Username</label>

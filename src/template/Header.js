@@ -9,14 +9,14 @@ const Header = props => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           {props.user ?
           <div className="navbar-nav links">
-            <Link className="nav-item nav-link" to='/'>Home</Link>
-            <Link className="nav-item nav-link" to='/stores'>Stores</Link>
             <Link className="nav-item nav-link" to='/finds'>Finds</Link>
             <Link className="nav-item nav-link" to='/upload-find'>Upload Find</Link>
             <Link className="nav-item nav-link" to='/profiles'>Users</Link>
             <Link className="nav-item nav-link" to='/user'><img className="avatar" src={props.user.image} alt="user" /></Link>
           </div>
-          : null}
+          : <div className="navbar-nav links float-left">
+            <Link className="nav-item nav-link" to='/'>Home</Link>
+          </div>}
         </div>
       </nav>
 
