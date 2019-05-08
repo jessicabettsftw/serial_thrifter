@@ -17,13 +17,19 @@
 }
 
 .finds-filters {
-  margin: 30px;
+  padding-top: 30px;
+  padding-right: 20%;
+  padding-left: 20%;
   justify-content: center;
+  text-align: center;
   font-family: 'Quattrocento', serif;
   font-family: 'Unna', serif;
 }
 
 .main-content {
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-top: 15%;
+  padding: 5%;
+  width: 80%;
+  margin: auto;
+  background-color: white;
 }

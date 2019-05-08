@@ -199,9 +199,9 @@ class Finds extends Component {
       return (this.props.selectedFind !== undefined) ? (
         <Redirect to="/find" />
       ) : (
-        <div>
-          <div className="">
-            <form onSubmit={(ev) => this.filterFinds(ev)} onChange={(event) => this.clearFilters(event)} className="finds-filters">
+        <div className="main-content">
+          <div >
+            <form onSubmit={(ev) => this.filterFinds(ev)} onChange={(event) => this.clearFilters(event)} className="finds-filters flex">
               <div className="row form-inline justify-content-center">
                 <div className="col-2 form-check-inline">
                   <input className="form-check-input" name="myLocation" type="checkbox" value="" id="defaultCheck1" />
@@ -228,9 +228,13 @@ class Finds extends Component {
               </div>
             </form>
           </div>
-          <div className="row justify-content-center flex main-content">
-              {this.displayFinds()}
+          <div className="col">
+            <hr></hr>
+              <div className="row justify-content-center flex">
+                  {this.displayFinds()}
+              </div>
           </div>
+
         </div>
       );
     } else { return <Redirect to="/" />}

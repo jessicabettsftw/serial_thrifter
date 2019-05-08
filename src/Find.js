@@ -172,15 +172,23 @@ class Find extends Component {
       if (this.state.findDisplay === "show") {
         return (
           <div>
-            <p>Brand: {this.props.find.brand} </p>
-            <p>Desc: {this.props.find.description}</p>
-            <p>${this.props.find.price}.00</p>
-            <br></br><br></br><br></br>
-            <p>Store: {this.state.store.name}</p>
-            <p>{this.state.poster.username}: <img onClick={() => this.props.setSelectedUser(this.state.poster)} src={this.state.poster.image} alt="user avatar" className="user-avatar" /></p>
-            {this.displayEdit()}
-        </div>
-
+            <div className="row justify-content-center text-align-center">
+              <div className="col">
+                <img onClick={() => this.props.setSelectedUser(this.state.poster)} src={this.state.poster.image} alt="user avatar" className="user-avatar float-left" />
+                  <h1 id="user-title">{this.state.poster.username}</h1>
+              </div>
+            </div>
+            <div className="col">
+              <hr></hr>
+            </div>
+            <div>
+              <p>Brand: {this.props.find.brand} </p>
+              <p>Desc: {this.props.find.description}</p>
+              <p>${this.props.find.price}.00</p>
+              <p>Store: {this.state.store.name}</p>
+              {this.displayEdit()}
+            </div>
+          </div>
         )
       }
       if (this.state.findDisplay=== "edit") {
@@ -244,9 +252,11 @@ class Find extends Component {
     return (this.props.selectedUser !== undefined)? (<Redirect to="/profile" />)
   :( (this.props.find === undefined)? (<Redirect to="/finds" />): (
       <div id="find" className="row justify-content-center">
-        <div className="col lrg-poloroid justify-content-center">
+        <div className="col justify-content-center">
+          <div className="lrg-poloroid">
             <img src={this.props.find.photo} alt="find" className="lrg-poloroid-img"/>
             <span>{this.isLiked(this.props.find.id).toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}>{this.state.numLikes}🔥</span> : <span>{this.state.numLikes}<img src={notLiked} alt="not liked" onClick={() => this.likeFind(this.props.find.id)} /></span>}</span>
+          </div>
         </div>
         <div className="col lrg-info">
           {this.displayFind()}
