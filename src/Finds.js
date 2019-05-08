@@ -5,16 +5,13 @@ import { Redirect } from "react-router-dom";
 class Finds extends Component {
   constructor(props){
     super(props)
-
+    console.log("getting props", this.props)
     this.state = {
-      finds: [],
-      filteredFinds: [],
+      finds: this.props.finds,
+      filteredFinds: this.props.finds,
       userLocation: {},
       stores: [],
       filteredStores: []
-    }
-    if (this.state.finds.length === 0){
-      this.getFinds()
     }
     if (this.state.stores.length === 0){
       this.getStores()
@@ -22,25 +19,7 @@ class Finds extends Component {
 
   }
 
-  getFinds = () => {
-    let url = "http://localhost:3000/finds"
-    let jwt = localStorage.getItem('jwt')
-    console.log(jwt)
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + jwt
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      //console.log(data)
-      this.setState({
-        filteredFinds: data.finds,
-        finds: data.finds
-      })
-    })
-  }
+
 
   isLiked = (find_id) => {
     if (this.props.likes !== undefined){
@@ -90,7 +69,7 @@ class Finds extends Component {
     fetch(url)
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      //console.log(data)
     })
   }
 
@@ -134,6 +113,7 @@ class Finds extends Component {
   }
 
   likeFind = (findId) => {
+    // debugger;
     if (this.isLiked(findId) === false){
       let jwt = localStorage.getItem('jwt')
       let url = "http://localhost:3000/likes"
@@ -174,12 +154,12 @@ class Finds extends Component {
     let brand = ev.target.elements['brandInput'].value
     let price = ev.target.elements['priceInput'].value
     let location = ev.target.elements['myLocation'].checked
-    console.log(ev.target.elements['myLocation'].checked)
+    //console.log(ev.target.elements['myLocation'].checked)
 
     let brand_filtered = this.brandFilter(this.state.finds, brand)
-    console.log(brand_filtered)
+    //console.log(brand_filtered)
     let price_filtered = this.priceFilter(brand_filtered, price)
-    console.log(price_filtered)
+    //console.log(price_filtered)
     let location_filtered = price_filtered
     if (location === true) {
       location_filtered = this.locationFilter(price_filtered)
@@ -224,6 +204,9 @@ class Finds extends Component {
                 </div>
                 <div className="col">
                    <button type="submit" className="btn btn-primary button">Submit</button>
+                </div>
+                <div className="col">
+                  <p className="results">{this.state.filteredFinds.length} Results</p>
                 </div>
               </div>
             </form>
