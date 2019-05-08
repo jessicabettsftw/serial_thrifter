@@ -144,7 +144,7 @@ class User extends Component {
     }
     if (this.state.userDisplay=== "edit") {
       return (
-        <div>
+        <div >
           <form onSubmit={(ev) => this.handleSubmit(ev)}>
             <div className="form-group" >
               <label >Zip</label>
@@ -221,7 +221,7 @@ class User extends Component {
     return (this.props.selectedFind !== undefined) ? (
       <Redirect to="/find" />
     ) : (
-      <div className="">
+      <div className="main-content">
         <div className="row">
           <div className="col align-content-right">
             <img src={this.props.user.image} className="lrg-profile-img float-right" alt="large-user-icon"/>

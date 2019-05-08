@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import notLiked from "./images/flame.png"
+import notLiked from "./images/flame.png";
 import { Redirect } from "react-router-dom";
+import unliked from "./images/unliked.jpg";
+import liked from "./images/liked.jpg";
 
 class Find extends Component {
   constructor(props){
@@ -184,8 +186,9 @@ class Find extends Component {
             <div>
               <p>Brand: {this.props.find.brand} </p>
               <p>Desc: {this.props.find.description}</p>
-              <p>${this.props.find.price}.00</p>
+              <p>Price: ${this.props.find.price}.00</p>
               <p>Store: {this.state.store.name}</p>
+              <p></p>
               {this.displayEdit()}
             </div>
           </div>
@@ -255,7 +258,7 @@ class Find extends Component {
         <div className="col justify-content-center">
           <div className="lrg-poloroid">
             <img src={this.props.find.photo} alt="find" className="lrg-poloroid-img"/>
-            <span>{this.isLiked(this.props.find.id).toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}>{this.state.numLikes}🔥</span> : <span>{this.state.numLikes}<img src={notLiked} alt="not liked" onClick={() => this.likeFind(this.props.find.id)} /></span>}</span>
+              <span className="lit">{this.isLiked.toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}><img src={liked} alt="liked" /></span> : <span onClick={() => this.likeFind(this.props.find.id)}><img src={unliked} alt='liked' /></span>}</span>
           </div>
         </div>
         <div className="col lrg-info">

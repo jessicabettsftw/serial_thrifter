@@ -86,12 +86,16 @@ class Profile extends Component {
       ) : ( (this.props.selectedUser === undefined)? (null): (
         <div className="profile-area">
           <div className="row">
-            <div className="col lrg-user-info">
+            <div className="col-2">
+            </div>
+            <div className="col-4 lrg-user-info">
               <img className="lrg-profile-img float-right" src={this.props.selectedUser.image} alt="" />
             </div>
-            <div className="col lrg-user-info">
-              <p>{this.props.selectedUser.username} </p>
+            <div className="col-4 lrg-user-info">
+              <h1 id="user-title">{this.props.selectedUser.username} </h1>
               <p>{this.props.selectedUser.bio} </p>
+            </div>
+            <div className="col-2">
             </div>
           </div>
           <div className="row">
@@ -99,7 +103,7 @@ class Profile extends Component {
               <hr></hr>
             </div>
           </div>
-          <div className="row justify-content-center flex main-content">
+          <div className="row justify-content-center flex">
               {this.displayFinds()}
           </div>
         </div>

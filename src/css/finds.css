@@ -6,14 +6,15 @@
   font-family: 'Unna', serif;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: 2%;
+  padding: 1% 0% 2% 0%;
 }
 
 .small-poloroid-img {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 1%;
   width: 140px;
-  margin-top: 5%;
 }
 
 .finds-filters {
@@ -32,4 +33,15 @@
   width: 80%;
   margin: auto;
   background-color: white;
+}
+
+.price {
+  float: right;
+  margin-right: 6%;
+  color: #F5A319;
+  font-weight: bolder;
+}
+
+.lit {
+  margin-left: 6%;
 }

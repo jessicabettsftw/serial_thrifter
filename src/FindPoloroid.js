@@ -1,12 +1,13 @@
 import React from "react";
-import notLiked from "./images/flame.png"
+import unliked from "./images/unliked.jpg";
+import liked from "./images/liked.jpg";
 
 const FindPoloroid = props => {
   return (
     <div className="small-poloroid justify-content-center" >
       <div onClick={() => props.selectFind(props.find.id)}><img src={props.find.photo} alt="find" className="small-poloroid-img"/></div>
-      <span>${props.find.price}.00</span><br></br>
-      <span>{props.isLiked.toString() === "true" ? <span role="img" alt="liked" onClick={() => props.unlikeFind(props.find.id)}>🔥</span> : <img src={notLiked} alt="not liked" onClick={() => props.likeFind(props.find.id)} />}</span>
+      <span className="lit">{props.isLiked.toString() === "true" ? <span role="img" alt="liked" onClick={() => props.unlikeFind(props.find.id)}><img src={liked} alt="liked" /></span> : <span onClick={() => props.likeFind(props.find.id)}><img src={unliked} alt='liked' /></span>}</span>
+      <span className="price">${props.find.price}.00</span>
     </div>
   );
 };

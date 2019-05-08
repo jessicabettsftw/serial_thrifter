@@ -110,7 +110,7 @@ class App extends Component {
               <Route path="/upload-find" component={() => <UploadFind selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
               <Route path="/user" component={() => <User selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} setUser={this.setUser} user={this.state.user} likes={this.state.likes} selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} addLike={this.addLike} removeLike={this.removeLike} />}/>
               <Route to="/profile" component={() => <Profile selectedFind={this.state.selectedFind} selectFind={(id) => this.selectFind(id)} user={this.state.user} selectedUser={this.state.selectedUser} likes={this.state.likes} addLike={this.addLike} removeLike={this.removeLike}/>}/>
-            <Route to="/profiles" component={() => <Profiles user={this.state.user} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser}/>}/>
+              <Route to="/profiles" component={() => <Profiles user={this.state.user} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser}/>}/>
             </Switch>
           </Router>
       </div>
