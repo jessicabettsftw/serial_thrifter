@@ -6,7 +6,7 @@ class User extends Component {
   constructor(props){
     super(props)
     console.log(this.props)
-    this.state = this.props.user ? {
+    this.state = {
       display: "finds",
       userDisplay: "show",
       myFinds: [],
@@ -14,14 +14,6 @@ class User extends Component {
       zip: this.props.user.zip,
       bio: this.props.user.bio,
       image: this.props.user.image
-    } : {
-      display: "finds",
-      userDisplay: "show",
-      myFinds: [],
-      myLikedFinds: [],
-      zip: "",
-      bio: "",
-      image: ""
     }
     if (this.props.user !== undefined) {
       this.getFinds()
@@ -155,16 +147,16 @@ class User extends Component {
         <div>
           <form onSubmit={(ev) => this.handleSubmit(ev)}>
             <div className="form-group" >
-              <label for="exampleInputEmail1">Zip</label>
+              <label >Zip</label>
               <input onChange={(event) => this.changingForm(event)} name="zip" type="zip" className="form-control" id="zipInput" placeholder="Enter Zip" value={this.state.zip} required/>
             </div>
             <div className="form-group">
-              <label for="exampleInputPassword1">Bio</label>
+              <label >Bio</label>
               <textarea onChange={(event) => this.changingForm(event)} className="form-control" name="bio" id="bioInput" placeholder="Enter Bio" rows="3" value={this.state.bio} required></textarea>
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Image</label>
-              <input type="file" name="image" id="imageInput" placeholder="Enter Photo URL" value={this.state.image} required/>
+              <label >Image</label>
+              <input onChange={(event) => this.changingForm(event)} type="file" name="image" id="imageInput" placeholder="Enter Photo URL" value={this.state.image} required/>
             </div>
             <button type="submit" className="btn btn-primary">Save</button>
           </form>
