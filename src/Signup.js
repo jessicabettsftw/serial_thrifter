@@ -4,28 +4,6 @@ import { Redirect } from "react-router-dom";
 class Signup extends Component {
   constructor(props){
     super(props)
-
-    this.state = {
-      img: undefined
-    }
-  }
-
-  updatePhoto = (event) => {
-    event.preventDefault()
-    let photo = event.target.files[0]
-    console.log(photo)
-    // let photo = event.target.files[0]
-    // //check ext
-    // //update state
-    //
-    // const fileAsBlob = new Blob([photo]);
-    //
-    // console.log(fileAsBlob);
-    //
-    // const blobAsFile = new File([fileAsBlob], photo.name, {type: photo.type, lastModified: photo.lastModifiedDate});
-    //
-    // console.log(blobAsFile);
-    this.setState({img: photo})
   }
 
   getBase64 = (file) => {
@@ -68,16 +46,15 @@ class Signup extends Component {
           "name": file.name
         }
       })})
-      .then( res => console.log(res))
-      //.then( res => res.json())
-      // .then(data => {
-      //   if (data.error) {
-      //     alert(data.error)
-      //   } else if (data.user){
-      //     localStorage.setItem('jwt', data.jwt)
-      //     this.props.setUser(data.user.users)
-      //   }
-      // })
+      .then( res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error)
+        } else if (data.user){
+          localStorage.setItem('jwt', data.jwt)
+          this.props.setUser(data.user.users)
+        }
+      })
     })
   }
 
@@ -86,9 +63,6 @@ class Signup extends Component {
     (<Redirect to="/finds" /> )
     : (
     <div className="row justify-content-center flex">
-      <div className="col-4 lrg-poloroid justify-content-center">
-          {(this.state.img !== undefined)? <img src={this.state.img} alt="find" className="lrg-poloroid-img"/> : null}
-      </div>
       <div className="col-4 lrg-info">
         <form onSubmit={(ev) => this.handleSubmit(ev)}>
           <div className="form-group" >
@@ -105,7 +79,7 @@ class Signup extends Component {
           </div>
           <div className="form-group">
             <label for="exampleInputEmail1">Photo</label><br></br>
-            <input onChange={(event) => this.updatePhoto(event)} type="file" name="photo" id="photoInput" placeholder="enter photo url" required/>
+            <input type="file" name="photo" id="photoInput" placeholder="enter photo url" required/>
           </div>
           <button type="submit" className="styledButton btn btn-primary">Submit</button>
         </form>
