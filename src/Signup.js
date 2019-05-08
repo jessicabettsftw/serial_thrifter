@@ -12,7 +12,7 @@ class Signup extends Component {
 
   updatePhoto = (event) => {
     event.preventDefault()
-    let photo = event.target.value
+    let photo = event.target.files[0]
     console.log(photo)
     // let photo = event.target.files[0]
     // //check ext
@@ -25,7 +25,7 @@ class Signup extends Component {
     // const blobAsFile = new File([fileAsBlob], photo.name, {type: photo.type, lastModified: photo.lastModifiedDate});
     //
     // console.log(blobAsFile);
-    //this.setState({img: photo})
+    this.setState({img: photo})
   }
 
   getBase64 = (file) => {
@@ -64,8 +64,8 @@ class Signup extends Component {
           "username": username,
           "email": email,
           "password": password,
-          "image": myfile,
-          "image_name": file.name
+          "file": myfile,
+          "name": file.name
         }
       })})
       .then( res => console.log(res))
