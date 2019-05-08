@@ -143,9 +143,9 @@ class User extends Component {
     if (this.state.userDisplay === "show") {
       return (
         <div>
-          <p>{this.props.user.username} </p>
-          <p>{this.props.user.bio} </p>
-          <p>{this.props.user.zip} </p>
+          <h1>{this.props.user.username} </h1>
+          <p>bio: {this.props.user.bio} </p>
+          <p>zip: {this.props.user.zip} </p>
           <button className="btn btn-primary" onClick={() => this.EditUser()}>Edit</button>
         </div>
       )
@@ -164,7 +164,7 @@ class User extends Component {
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Image</label>
-              <input onChange={(event) => this.changingForm(event)} name="image" className="form-control" id="imageInput" placeholder="Enter Photo URL" value={this.state.image} required/>
+              <input type="file" name="image" id="imageInput" placeholder="Enter Photo URL" value={this.state.image} required/>
             </div>
             <button type="submit" className="btn btn-primary">Save</button>
           </form>
@@ -176,7 +176,7 @@ class User extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     let bio = event.target.elements['bio'].value
-    let image = event.target.elements['image'].value
+    //let image = event.target.elements['image'].value
     let zip = event.target.elements['zip'].value
 
     // console.log(bio)
@@ -184,24 +184,31 @@ class User extends Component {
     // console.log(password)
     // console.log(image)
     // console.log(zip)
-    let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/users/${this.props.user.id}`
-    fetch( url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': 'Bearer ' + jwt
-      },
-      body: JSON.stringify({
-        "bio": bio,
-        "image": image,
-        "zip": zip
-      })})
-      .then( res => res.json())
-      .then(data => {
-        console.log(data)
-        this.props.setUser(data)
-      })
+    let file = event.target.elements['image'].files[0]
+    console.log(file.name)
+    console.log(file)
+    this.getBase64(file)
+    .then( myfile => {
+      let jwt = localStorage.getItem('jwt')
+      let url = `https://serialthrifterbackend.herokuapp.com/users/${this.props.user.id}`
+      fetch( url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + jwt
+        },
+        body: JSON.stringify({
+          "bio": bio,
+          "image": myfile,
+          "zip": zip,
+          "name": file.name
+        })})
+        .then( res => res.json())
+        .then(data => {
+          console.log(data)
+          this.props.setUser(data)
+        })
+    })
   }
 
   changeDisplay = (display) => {
@@ -215,8 +222,8 @@ class User extends Component {
     ) : (
       <div className="">
         <div className="row">
-          <div className="col sml-user-info">
-            <img className="lrg-profile-img float-right" src={this.state.image} alt="" />
+          <div className="col align-content-right">
+            <img src={this.props.user.image} className="lrg-profile-img float-right" alt="large-user-icon"/>
           </div>
           <div className="col sml-user-info">
             {this.displayUser()}
