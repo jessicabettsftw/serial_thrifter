@@ -28,6 +28,12 @@
   border-radius: 50%;
 }
 
+.user-title {
+  font-weight: bolder;
+  font-size: 70px;
+  color: #537A5F;
+}
+
 body {
   font-family: 'Quattrocento', serif;
   font-family: 'Unna', serif;

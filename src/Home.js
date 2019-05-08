@@ -8,13 +8,16 @@ class Home extends Component {
       <div id="intro" className="col justify-content-center text-align-center">
         <div className="justify-content-center text-align-center">
           <p>
-            let's minimize our participation in consumerism
+            Let's minimize our participation in consumerism
           </p>
           <p>
-            by choosing ethically sourced products and partoning consignment store
+            By choosing ethically sourced products and partoning consignment store
           </p>
           <p>
-            reduce. reuse. recycle. rewear....
+            you can help diminish the impact of fast fashion
+          </p>
+          <p className="statement-text">
+            Reduce. Reuse. Recycle. Rewear.
           </p>
         </div>
         <div className="navbar-nav session-links">

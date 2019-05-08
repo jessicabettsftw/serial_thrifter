@@ -5,7 +5,7 @@ import ProfileIcon from "./ProfileIcon"
 class Profiles extends Component {
   constructor(props){
     super(props)
-
+    console.log(this.props)
     this.state = {
       profiles: [],
       redirect: false

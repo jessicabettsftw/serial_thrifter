@@ -177,7 +177,7 @@ class Find extends Component {
             <div className="row justify-content-center text-align-center">
               <div className="col">
                 <img onClick={() => this.props.setSelectedUser(this.state.poster)} src={this.state.poster.image} alt="user avatar" className="user-avatar float-left" />
-                  <h1 id="user-title">{this.state.poster.username}</h1>
+                  <h1 className="user-title">{this.state.poster.username}</h1>
               </div>
             </div>
             <div className="col">

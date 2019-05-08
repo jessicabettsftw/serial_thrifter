@@ -8,8 +8,8 @@ import UploadFind from "./UploadFind";
 import Find from "./Find";
 import Home from "./Home";
 import User from "./User";
-import Profile from "./Profile";
 import Profiles from "./Profiles";
+import Profile from "./Profile";
 import Photos from "./Photos";
 import Header from "./template/Header";
 
@@ -109,10 +109,10 @@ class App extends Component {
               <Route path="/find" component={() => <Find setFind={this.setFind} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser} user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
               <Route path="/upload-find" component={() => <UploadFind selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
               <Route path="/user" component={() => <User selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} setUser={this.setUser} user={this.state.user} likes={this.state.likes} selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} addLike={this.addLike} removeLike={this.removeLike} />}/>
-              <Route to="/profile" component={() => <Profile selectedFind={this.state.selectedFind} selectFind={(id) => this.selectFind(id)} user={this.state.user} selectedUser={this.state.selectedUser} likes={this.state.likes} addLike={this.addLike} removeLike={this.removeLike}/>}/>
-              <Route to="/profiles" component={() => <Profiles user={this.state.user} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser}/>}/>
+              <Route path="/profiles" component={() => <Profiles user={this.state.user} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser}/>}/>
+              <Route path="/profile" component={() => <Profile selectedFind={this.state.selectedFind} selectFind={(id) => this.selectFind(id)} user={this.state.user} selectedUser={this.state.selectedUser} likes={this.state.likes} addLike={this.addLike} removeLike={this.removeLike}/>}/>
             </Switch>
-          </Router>
+        </Router>
       </div>
     );
   }

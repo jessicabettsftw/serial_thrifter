@@ -6,15 +6,18 @@ class User extends Component {
   constructor(props){
     super(props)
     console.log(this.props)
-    this.state = {
-      display: "finds",
-      userDisplay: "show",
-      myFinds: [],
-      myLikedFinds: [],
-      zip: this.props.user.zip,
-      bio: this.props.user.bio,
-      image: this.props.user.image
+    if (this.props.user !== undefined){
+      this.state = {
+        display: "finds",
+        userDisplay: "show",
+        myFinds: [],
+        myLikedFinds: [],
+        zip: this.props.user.zip,
+        bio: this.props.user.bio,
+        image: this.props.user.image
+      }
     }
+
     if (this.props.user !== undefined) {
       this.getFinds()
       this.getLikedFinds()
@@ -134,8 +137,8 @@ class User extends Component {
   displayUser = () => {
     if (this.state.userDisplay === "show") {
       return (
-        <div>
-          <h1>{this.props.user.username} </h1>
+        <div >
+          <h1 className="user-title">{this.props.user.username} </h1>
           <p>bio: {this.props.user.bio} </p>
           <p>zip: {this.props.user.zip} </p>
           <button className="btn btn-primary" onClick={() => this.EditUser()}>Edit</button>
@@ -221,12 +224,12 @@ class User extends Component {
     return (this.props.selectedFind !== undefined) ? (
       <Redirect to="/find" />
     ) : (
-      <div className="main-content">
+      <div className="profile-area">
         <div className="row">
           <div className="col align-content-right">
             <img src={this.props.user.image} className="lrg-profile-img float-right" alt="large-user-icon"/>
           </div>
-          <div className="col sml-user-info">
+          <div className="col lrg-user-info">
             {this.displayUser()}
           </div>
         </div>
@@ -236,12 +239,12 @@ class User extends Component {
             <hr></hr>
           </div>
         </div>
-        <div className="row justify-content-center flex main-content">
+        <div className="row justify-content-center flex">
             {this.displayContent()}
         </div>
       </div>
 
-    )} else { return <Redirect to="/" /> }
+    )} else { return <Redirect exact to="/" /> }
   }
 }
 
