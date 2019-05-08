@@ -4,8 +4,26 @@
   border-radius: 50%;
 }
 
-.profile{
-  justify-content: center;
-  text-align: center;
-  width: 10em;
+div > .username{
+  margin-top: 2em;
+  margin-bottom: 2em;
+  color: purple;
+  font-weight: lighter;
+}
+
+li {
+  list-style-type: none;
+}
+
+.profiles-container {
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10%;
+  padding: 3%;
+  background-color: white;
+}
+
+.results {
+  margin-top: 1em;
 }

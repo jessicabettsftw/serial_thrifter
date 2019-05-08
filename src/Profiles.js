@@ -49,7 +49,7 @@ class Profiles extends Component {
     return this.state.filteredProfiles.map(profile => {
       console.log(profile)
       return (
-        <div onClick={() => this.props.setSelectedUser(profile)}><ProfileIcon profile={profile} /></div>
+        <li onClick={() => this.props.setSelectedUser(profile)}><ProfileIcon profile={profile} /></li>
       )
     })
   }
@@ -59,7 +59,7 @@ class Profiles extends Component {
       return (this.props.selectedUser !== undefined)?
       (<Redirect to="/profile" /> )
       : (
-      <div id="find" className="col">
+      <div className="profiles-container">
         <div className="row">
           <form onSubmit={(ev) => this.usernameFilter(ev)} className="flex form-inline">
             <div className="col">
@@ -68,11 +68,16 @@ class Profiles extends Component {
             <div className="col">
                <button type="submit" className="btn btn-primary button">Submit</button>
             </div>
+            <div className="col">
+               <p className="results">{this.state.filteredProfiles.length} Results</p>
+            </div>
           </form>
         </div>
         <hr></hr>
       <div className="row">
-        {this.displayProfiles()}
+        <ul >
+          {this.displayProfiles()}
+        </ul>
       </div>
     </div>
       )

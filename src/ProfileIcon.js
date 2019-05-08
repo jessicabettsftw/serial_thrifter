@@ -15,14 +15,20 @@ class ProfileIcon extends Component {
     return (this.state.redirect === true)?
     (<Redirect to="/finds" /> )
     : (
-      <div className="profile justify-content-center">
+      <div>
         <div className="row">
-          <img className="small-profiles-icon" src={this.props.profile.image} alt="user icon" />
+          <div className="col">
+            <img className="small-profiles-icon" src={this.props.profile.image} alt="user icon" />
+          </div>
+          <div className="col ">
+            <p className="username">{this.props.profile.username}</p>
+          </div>
         </div>
-        <div className="row">
-          {this.props.profile.username}
+        <div className="col">
+          <hr></hr>
         </div>
       </div>
+
 
     )
   }
