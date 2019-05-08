@@ -5,33 +5,39 @@ import FindPoloroid from "./FindPoloroid";
 class Profile extends Component {
 
   getBase64 = (file) => {
-   var reader = new FileReader();
-   reader.readAsDataURL(file);
-   reader.onload = function () {
-     console.log(reader.result);
-   };
-   reader.onerror = function (error) {
-     console.log('Error: ', error);
-   };
-}
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
 
   handleSubmit = (ev) => {
     ev.preventDefault()
-    console.log(ev.target.elements['file'].files[0])
-    let file = this.getBase64(ev.target.elements['file'].files[0])
-    console.log(file)
-    let url = "https://serialthrifterbackend.herokuapp.com/photos"
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: file})
-      .then( res => res.json())
-      .then(data => {
-        console.log(data)
-      })
+    //console.log(ev.target.elements['file'].files[0])
+    let file = ev.target.elements['file'].files[0]
+
+    this.getBase64(file)
+    .then( myfile => {
+      console.log(myfile)
+      let url = `http://localhost:3000/photos`
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+          // 'Authorization': 'Bearer ' + jwt
+        },
+        body: JSON.stringify({'file': myfile, 'name':file.name})})
+        .then( res => {
+          console.log(res)
+          return res.json()
+        })
+        .then(data => {
+          console.log(data.public_url)
+        })
+    })
   }
 
   render(){

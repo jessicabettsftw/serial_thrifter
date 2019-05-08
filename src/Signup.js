@@ -28,17 +28,31 @@ class Signup extends Component {
     this.setState({img: photo})
   }
 
+  getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
     let username = event.target.elements['username'].value
     let email = event.target.elements['email'].value
     let password = event.target.elements['password'].value
-    let image = event.target.elements['photo'].value
+    //let image = event.target.elements['photo'].value
 
     console.log(username)
     console.log(email)
     console.log(password)
-    console.log(image)
+    //sconsole.log(image)
+    let file = event.target.elements['photo'].files[0]
+    console.log(file.name)
+    console.log(file)
+    this.getBase64(file)
+    .then( myfile => {
     let url = "https://serialthrifterbackend.herokuapp.com/users"
     fetch( url, {
       method: "POST",
@@ -50,7 +64,8 @@ class Signup extends Component {
           "username": username,
           "email": email,
           "password": password,
-          "image": image
+          "image": myfile,
+          "image_name": file.name
         }
       })})
       .then( res => res.json())
@@ -62,6 +77,7 @@ class Signup extends Component {
           this.props.setUser(data.user.users)
         }
       })
+    })
   }
 
   render(){
@@ -87,8 +103,8 @@ class Signup extends Component {
             <input name="password" type="password" className="form-control" placeholder="Password" required/>
           </div>
           <div className="form-group">
-            <label for="exampleInputEmail1">Photo</label>
-            <input onChange={(event) => this.updatePhoto(event)} name="photo" className="form-control" id="photoInput" placeholder="enter photo url" required/>
+            <label for="exampleInputEmail1">Photo</label><br></br>
+            <input onChange={(event) => this.updatePhoto(event)} type="file" name="photo" id="photoInput" placeholder="enter photo url" required/>
           </div>
           <button type="submit" className="styledButton btn btn-primary">Submit</button>
         </form>
