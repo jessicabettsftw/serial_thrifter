@@ -25,7 +25,7 @@ class Signup extends Component {
     // const blobAsFile = new File([fileAsBlob], photo.name, {type: photo.type, lastModified: photo.lastModifiedDate});
     //
     // console.log(blobAsFile);
-    this.setState({img: photo})
+    //this.setState({img: photo})
   }
 
   getBase64 = (file) => {
@@ -68,15 +68,16 @@ class Signup extends Component {
           "image_name": file.name
         }
       })})
-      .then( res => res.json())
-      .then(data => {
-        if (data.error) {
-          alert(data.error)
-        } else if (data.user){
-          localStorage.setItem('jwt', data.jwt)
-          this.props.setUser(data.user.users)
-        }
-      })
+      .then( res => console.log(res))
+      //.then( res => res.json())
+      // .then(data => {
+      //   if (data.error) {
+      //     alert(data.error)
+      //   } else if (data.user){
+      //     localStorage.setItem('jwt', data.jwt)
+      //     this.props.setUser(data.user.users)
+      //   }
+      // })
     })
   }
 
