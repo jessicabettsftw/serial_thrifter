@@ -33,7 +33,7 @@ class App extends Component {
 
   getLikes = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/likes/user/${this.state.user.id}`
+    let url = `http://localhost:3000/likes/user/${this.state.user.id}`
     fetch(url, {
       headers: {
         'Authorization': 'Bearer ' + jwt
@@ -66,7 +66,7 @@ class App extends Component {
 
   selectFind = (findId) => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/${findId}`
+    let url = `http://localhost:3000/finds/${findId}`
     return fetch(url, {
       method: 'GET',
       headers: {

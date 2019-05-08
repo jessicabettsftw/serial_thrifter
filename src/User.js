@@ -36,7 +36,7 @@ class User extends Component {
 
   getFinds = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/user/${this.props.user.id}`
+    let url = `http://localhost:3000/finds/user/${this.props.user.id}`
     fetch(url, {
       method: 'GET',
       headers: {
@@ -51,7 +51,7 @@ class User extends Component {
 
   getLikedFinds = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/likes/finds/${this.props.user.id}`;
+    let url = `http://localhost:3000/likes/finds/${this.props.user.id}`;
     fetch(url, {
       method: 'GET',
       headers: {
@@ -68,7 +68,7 @@ class User extends Component {
     console.log("liking")
     if (this.isLiked(findId) === false){
       let jwt = localStorage.getItem('jwt')
-      let url = "https://serialthrifterbackend.herokuapp.com/likes"
+      let url = "http://localhost:3000/likes"
       fetch(url, {
         method: "POST",
         headers: {
@@ -90,7 +90,7 @@ class User extends Component {
   unlikeFind = (findId) => {
     if (this.isLiked(findId)){
       let jwt = localStorage.getItem('jwt')
-      let url = `https://serialthrifterbackend.herokuapp.com/likes/user/${this.props.user.id}/find/${findId}`
+      let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
       fetch(url, {
         method: "DELETE",
         headers: {
@@ -194,7 +194,7 @@ class User extends Component {
     this.getBase64(file)
     .then( myfile => {
       let jwt = localStorage.getItem('jwt')
-      let url = `https://serialthrifterbackend.herokuapp.com/users/${this.props.user.id}`
+      let url = `http://localhost:3000/users/${this.props.user.id}`
       fetch( url, {
         method: "PATCH",
         headers: {

@@ -8,6 +8,7 @@ class Profiles extends Component {
     console.log(this.props)
     this.state = {
       profiles: [],
+      filteredProfiles: [],
       redirect: false
     }
     this.getProfiles()
@@ -15,7 +16,7 @@ class Profiles extends Component {
 
   getProfiles = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = "https://serialthrifterbackend.herokuapp.com/users"
+    let url = "http://localhost:3000/users"
     fetch(url, {
       method: 'GET',
       headers: {
@@ -23,12 +24,29 @@ class Profiles extends Component {
       }})
     .then(res => res.json())
     .then(data => {
-      this.setState({profiles: data.users})
+      this.setState({profiles: data.users, filteredProfiles: data.users})
     })
   }
 
+  usernameFilter = (event) => {
+    event.preventDefault()
+    let username = event.target.elements['usernameInput'].value
+    console.log(username)
+    let usernameFiltered = []
+    if (username !== ""){
+      this.state.profiles.forEach(user => {
+        if (user.username.toLowerCase().includes(username.toLowerCase())) {
+          usernameFiltered.push(user)
+        }
+      })
+      this.setState({filteredProfiles: usernameFiltered})
+    } else {
+      this.setState({filteredProfiles: this.state.profiles})
+    }
+  }
+
   displayProfiles = () => {
-    return this.state.profiles.map(profile => {
+    return this.state.filteredProfiles.map(profile => {
       console.log(profile)
       return (
         <div onClick={() => this.props.setSelectedUser(profile)}><ProfileIcon profile={profile} /></div>
@@ -41,10 +59,22 @@ class Profiles extends Component {
       return (this.props.selectedUser !== undefined)?
       (<Redirect to="/profile" /> )
       : (
-      <div id="find" className="row">
+      <div id="find" className="col">
+        <div className="row">
+          <form onSubmit={(ev) => this.usernameFilter(ev)} className="flex form-inline">
+            <div className="col">
+              <input type="text" className="form-control" name="usernameInput" placeholder="Username Search:"/>
+            </div>
+            <div className="col">
+               <button type="submit" className="btn btn-primary button">Submit</button>
+            </div>
+          </form>
+        </div>
+        <hr></hr>
+      <div className="row">
         {this.displayProfiles()}
       </div>
-
+    </div>
       )
     } else { return <Redirect to="/" />}
   }

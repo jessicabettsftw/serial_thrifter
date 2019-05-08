@@ -31,7 +31,7 @@ class Signup extends Component {
     console.log(file)
     this.getBase64(file)
     .then( myfile => {
-    let url = "https://serialthrifterbackend.herokuapp.com/users"
+    let url = "http://localhost:3000/users"
     fetch( url, {
       method: "POST",
       headers: {

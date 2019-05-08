@@ -21,7 +21,7 @@ class Profile extends Component {
     this.getBase64(file)
     .then( myfile => {
       console.log(myfile)
-      let url = `https://serialthrifterbackend.herokuapp.com/photos`
+      let url = `http://localhost:3000/photos`
       fetch(url, {
         method: "POST",
         headers: {
