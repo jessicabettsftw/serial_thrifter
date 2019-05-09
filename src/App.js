@@ -44,7 +44,7 @@ class App extends Component {
 
   getFinds = () => {
     console.log("getting finds", this.state.finds)
-    let url = "https://serialthrifterbackend.herokuapp.com/finds"
+    let url = "http://localhost:3000/finds"
     let jwt = localStorage.getItem('jwt')
     //console.log(jwt)
     fetch(url, {
@@ -63,7 +63,7 @@ class App extends Component {
 
   getLikedFinds = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/likes/finds/${this.state.user.id}`;
+    let url = `http://localhost:3000/likes/finds/${this.state.user.id}`;
     fetch(url, {
       method: 'GET',
       headers: {
@@ -79,7 +79,7 @@ class App extends Component {
   getMyFinds = () => {
     console.log("again")
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/user/${this.state.user.id}`
+    let url = `http://localhost:3000/finds/user/${this.state.user.id}`
     fetch(url, {
       method: 'GET',
       headers: {
@@ -94,7 +94,7 @@ class App extends Component {
 
   getLikes = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/likes/user/${this.state.user.id}`
+    let url = `http://localhost:3000/likes/user/${this.state.user.id}`
     fetch(url, {
       headers: {
         'Authorization': 'Bearer ' + jwt
@@ -117,7 +117,7 @@ class App extends Component {
 
   addLike = (like) => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/${like.find_id}`
+    let url = `http://localhost:3000/finds/${like.find_id}`
     fetch(url, {
       headers: {
         'Authorization': 'Bearer ' + jwt
@@ -153,7 +153,7 @@ class App extends Component {
 
   removeLike = (findId) => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/${findId}`
+    let url = `http://localhost:3000/finds/${findId}`
     fetch(url, {
       headers: {
         'Authorization': 'Bearer ' + jwt
@@ -175,7 +175,7 @@ class App extends Component {
 
   selectFind = (findId) => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/${findId}`
+    let url = `http://localhost:3000/finds/${findId}`
     return fetch(url, {
       method: 'GET',
       headers: {
