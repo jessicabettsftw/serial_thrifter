@@ -37,7 +37,7 @@ class App extends Component {
 
   getFinds = () => {
     console.log("getting finds", this.state.finds)
-    let url = "https://serialthrifterbackend.herokuapp.com/finds"
+    let url = "http://localhost:3000/finds"
     let jwt = localStorage.getItem('jwt')
     //console.log(jwt)
     fetch(url, {
@@ -57,7 +57,7 @@ class App extends Component {
 
   getLikedFinds = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/likes/finds/${this.state.user.id}`;
+    let url = `http://localhost:3000/likes/finds/${this.state.user.id}`;
     fetch(url, {
       method: 'GET',
       headers: {
@@ -73,7 +73,7 @@ class App extends Component {
   getMyFinds = () => {
     console.log("again")
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/user/${this.state.user.id}`
+    let url = `http://localhost:3000/finds/user/${this.state.user.id}`
     fetch(url, {
       method: 'GET',
       headers: {
@@ -88,7 +88,7 @@ class App extends Component {
 
   getLikes = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/likes/user/${this.state.user.id}`
+    let url = `http://localhost:3000/likes/user/${this.state.user.id}`
     fetch(url, {
       headers: {
         'Authorization': 'Bearer ' + jwt
@@ -101,14 +101,17 @@ class App extends Component {
     })
   }
 
-  clearSelects = () => {
-    this.setState({selectedFind: undefined,
-                   selectedUser: undefined})
+  clearFind = () => {
+    this.setState({selectedFind: undefined})
+  }
+
+  clearUser = () => {
+    this.setState({selectedUser: undefined})
   }
 
   addLike = (like) => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/${like.find_id}`
+    let url = `http://localhost:3000/finds/${like.find_id}`
     fetch(url, {
       headers: {
         'Authorization': 'Bearer ' + jwt
@@ -138,13 +141,13 @@ class App extends Component {
       selectedFind: undefined,
       finds: prevState.finds.filter(function(thisFind) {
       return thisFind.id !== find.id
-      }),
+      })
     }))
   }
 
   removeLike = (findId) => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/${findId}`
+    let url = `http://localhost:3000/finds/${findId}`
     fetch(url, {
       headers: {
         'Authorization': 'Bearer ' + jwt
@@ -166,7 +169,7 @@ class App extends Component {
 
   selectFind = (findId) => {
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/finds/${findId}`
+    let url = `http://localhost:3000/finds/${findId}`
     return fetch(url, {
       method: 'GET',
       headers: {
@@ -205,12 +208,12 @@ class App extends Component {
               <Route path="/signup" component={() => <Signup user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/login" component={() => <Login user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/stores" component={() => <GoogleMap selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
-              <Route path="/finds" component={() => <Finds finds={this.state.finds} clearSelects={this.clearSelects} selectFind={(id) => this.selectFind(id)}  selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes}/>}/>
-              <Route path="/find" component={() => <Find removeFind={this.removeFind} setFind={this.setFind} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser} user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
+              <Route path="/finds" component={() => <Finds finds={this.state.finds} clearSelects={this.clearSelects} selectFind={(id) => this.selectFind(id)}  selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes} />}/>
+              <Route path="/find" component={() => <Find clearFind={this.clearFind} removeFind={this.removeFind} setFind={this.setFind} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser} user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
               <Route path="/upload-find" component={() => <UploadFind addFind={this.addFind} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
               <Route path="/user" component={() => <User myLikedFinds={this.state.myLikedFinds} myFinds={this.state.myFinds} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} setUser={this.setUser} user={this.state.user} likes={this.state.likes} selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} addLike={this.addLike} removeLike={this.removeLike} />}/>
               <Route path="/profiles" component={() => <Profiles user={this.state.user} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser}/>}/>
-              <Route path="/profile" component={() => <Profile selectedFind={this.state.selectedFind} selectFind={(id) => this.selectFind(id)} user={this.state.user} selectedUser={this.state.selectedUser} likes={this.state.likes} addLike={this.addLike} removeLike={this.removeLike}/>}/>
+              <Route path="/profile" component={() => <Profile clearUser={this.clearUser} selectedFind={this.state.selectedFind} selectFind={(id) => this.selectFind(id)} user={this.state.user} selectedUser={this.state.selectedUser} likes={this.state.likes} addLike={this.addLike} removeLike={this.removeLike}/>}/>
             </Switch>
         </Router>
       </div>

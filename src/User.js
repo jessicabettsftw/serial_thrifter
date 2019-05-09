@@ -19,23 +19,15 @@ class User extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   if ((this.props.selectedFind !== undefined) || (this.props.selectedUser !== undefined)){
-  //     this.props.clearSelects()
-  //   }
-  // }
-
   EditUser = () => {
     this.setState({userDisplay: "edit"})
   }
-
-
 
   likeFind = (findId) => {
     //console.log("liking")
     if (this.isLiked(findId) === false){
       let jwt = localStorage.getItem('jwt')
-      let url = "https://serialthrifterbackend.herokuapp.com/likes"
+      let url = "http://localhost:3000/likes"
       fetch(url, {
         method: "POST",
         headers: {
@@ -57,7 +49,7 @@ class User extends Component {
   unlikeFind = (findId) => {
     if (this.isLiked(findId)){
       let jwt = localStorage.getItem('jwt')
-      let url = `https://serialthrifterbackend.herokuapp.com/likes/user/${this.props.user.id}/find/${findId}`
+      let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
       fetch(url, {
         method: "DELETE",
         headers: {
@@ -129,6 +121,7 @@ class User extends Component {
               <input onChange={(event) => this.changingForm(event)} type="text" name="image" id="imageInput" placeholder="Enter Photo URL" value={this.state.image} required/>
             </div>
             <button type="submit" className="btn btn-primary">Save</button>
+            <button type="button" className="btn btn-primary" onClick={() => this.setState({userDisplay: "show"})}>Back</button>
           </form>
         </div>
       )
@@ -156,7 +149,7 @@ class User extends Component {
     // console.log(image)
     // console.log(zip)
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/users/${this.props.user.id}`
+    let url = `http://localhost:3000/users/${this.props.user.id}`
     fetch( url, {
       method: "PATCH",
       headers: {

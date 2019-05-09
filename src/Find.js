@@ -7,16 +7,21 @@ import liked from "./images/liked.jpg";
 class Find extends Component {
   constructor(props){
     super(props)
-    console.log(this.props)
-    this.state = {
-      store: {},
-      poster: {},
-      numLikes: "",
-      findDisplay: "show",
-      stores: [],
-      redirect: false,
 
+    if (this.props.find !== undefined){
+      this.state = {
+        store: {},
+        poster: {},
+        numLikes: "",
+        findDisplay: "show",
+        stores: [],
+        redirect: false,
+        price: this.props.find.price,
+        description: this.props.find.description,
+        brand: this.props.find.brand
+      }
     }
+
     if ((this.props.find !== undefined) && (this.props.selectedUser === undefined)){
       console.log("doing it")
       this.getStore()
@@ -37,7 +42,7 @@ class Find extends Component {
   getNumLikes = () => {
     //console.log(this.props.find.id)
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/likes/find/${this.props.find.id}`
+    let url = `http://localhost:3000/likes/find/${this.props.find.id}`
     fetch(url, {
       method: 'GET',
       headers: {
@@ -57,7 +62,7 @@ class Find extends Component {
   getStore = () => {
     //console.log(this.props.find.store_id)
     let jwt = localStorage.getItem('jwt')
-    let url = `https://serialthrifterbackend.herokuapp.com/stores/${this.props.find.store_id}`
+    let url = `http://localhost:3000/stores/${this.props.find.store_id}`
     fetch(url, {
       method: 'GET',
       headers: {
@@ -73,7 +78,7 @@ class Find extends Component {
     console.log("liking")
     if (this.isLiked(findId) === false){
       let jwt = localStorage.getItem('jwt')
-      let url = "https://serialthrifterbackend.herokuapp.com/likes"
+      let url = "http://localhost:3000/likes"
       fetch(url, {
         method: "POST",
         headers: {
@@ -96,7 +101,7 @@ class Find extends Component {
     unlikeFind = (findId) => {
       if (this.isLiked(findId)){
         let jwt = localStorage.getItem('jwt')
-        let url = `https://serialthrifterbackend.herokuapp.com/likes/user/${this.props.user.id}/find/${findId}`
+        let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
         fetch(url, {
           method: "DELETE",
           headers: {
@@ -108,7 +113,7 @@ class Find extends Component {
 
     getUserAvatar = (userId) => {
       let jwt = localStorage.getItem('jwt')
-      let url = `https://serialthrifterbackend.herokuapp.com/users/${userId}`
+      let url = `http://localhost:3000/users/${userId}`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -163,7 +168,7 @@ class Find extends Component {
 
     deleteFind = () => {
       let jwt = localStorage.getItem('jwt')
-      let url = `https://serialthrifterbackend.herokuapp.com/finds/${this.props.find.id}`
+      let url = `http://localhost:3000/finds/${this.props.find.id}`
       fetch(url, {
         method: "DELETE",
         headers: {
@@ -194,7 +199,7 @@ class Find extends Component {
             <div>
               <p>Brand: {this.props.find.brand} </p>
               <p>Desc: {this.props.find.description}</p>
-              <p>Price: ${this.props.find.price}.00</p>
+              <p>Price: ${this.props.find.price}</p>
               <p>Store: {this.state.store.name}</p>
               <p></p>
               {this.displayEdit()}
@@ -222,6 +227,7 @@ class Find extends Component {
               <textarea onChange={(event) => this.changingForm(event)} class="form-control" name="description" id="descriptionInput" placeholder="enter description" value={this.state.description} rows="3" required></textarea>
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="button" className="btn btn-primary" onClick={() => this.setState({findDisplay: "show"})}>Back</button>
           </form>
         )
       }
@@ -238,7 +244,7 @@ class Find extends Component {
       console.log(description)
 
       let jwt = localStorage.getItem('jwt')
-      let url = `https://serialthrifterbackend.herokuapp.com/finds/${this.props.find.id}`
+      let url = `http://localhost:3000/finds/${this.props.find.id}`
       console.log(url)
       fetch( url, {
         method: "PATCH",
