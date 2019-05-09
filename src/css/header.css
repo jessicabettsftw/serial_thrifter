@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Special+Elite');
 
-#header {
+.header {
   display: flex;
   position: fixed;
   top: 0;
