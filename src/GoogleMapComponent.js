@@ -127,7 +127,7 @@ export class MapContainer extends Component {
   render() {
     if (this.props.user !== undefined) {
       return (
-        <div>
+        <div id="find">
           <div className="row justify-content-center map-filters">
             <form onSubmit={(ev) => this.handleSubmit(ev)}>
               <div className="form-row">
@@ -146,8 +146,11 @@ export class MapContainer extends Component {
               </div>
             </form>
           </div>
-          <div className="row justify-content-center">
-            <div className="col-2 text-align-left lrg-info">
+          <div className="col">
+            <hr></hr>
+          </div>
+          <div className="row">
+            <div className="col text-align-left lrg-info">
               <p>
                 Name: {this.state.clickedStore.name}
               </p>
@@ -166,7 +169,7 @@ export class MapContainer extends Component {
                 {this.displayStores()}
               </ul>
             </div>*/}
-          <div className="col-3">
+          <div className="col lrg-info">
             <Map
               google={this.props.google}
               zoom={9}
@@ -186,21 +189,3 @@ export class MapContainer extends Component {
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyDIfPwIi6IVmHH8WNpQE0q9iLpY1XaB4m0'
 })(MapContainer);
-
-// alias: "goodwill-industries-maple-valley"
-// categories: [{…}]
-// coordinates: {latitude: 47.359423, longitude: -122.021071}
-// display_phone: "(425) 433-1566"
-// distance: 1949.9184114787333
-// id: "3cWo4U0v2i9XL01Tcfthjg"
-// image_url: "https://s3-media2.fl.yelpcdn.com/bphoto/XUhcnq_9uZ0oJT3j3DOpFQ/o.jpg"
-// is_closed: false
-// location: {address1: "27077 Black Diamond Rd SE", address2: "", address3: "", city: "Maple Valley", zip_code: "98038", …}
-// name: "Goodwill Industries"
-// phone: "+14254331566"
-// price: "$"
-// rating: 2.5
-// review_count: 25
-// transactions: []
-// url: "https://www.yelp.com/biz/goodwill-industries-maple-valley?adjust_creative=GzJl9WKjHSYRLS9v-F5pDA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=GzJl9WKjHSYRLS9v-F5pDA"
-// __proto__: Object
