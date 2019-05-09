@@ -98,7 +98,8 @@ class UploadFind extends Component {
             .then(res => res.json())
             .then(data => {
               console.log(data)
-              this.setState({redirect: true, })
+              this.props.addFind(data)
+              //this.setState({redirect: true, })
             })
         })
   }

@@ -27,7 +27,11 @@ class Find extends Component {
   }
 
   isLiked = (find_id) => {
-    return this.props.likes.map(find => find.find_id).includes(find_id)
+    if (this.props.likes !== undefined){
+      return this.props.likes.map(find => find.find_id).includes(find_id)
+    } else {
+      return []
+    }
   }
 
   getNumLikes = () => {
@@ -83,6 +87,7 @@ class Find extends Component {
         })})
         .then( res => res.json())
         .then(data => {
+          console.log(data)
           this.props.addLike(data)
         })
     }
@@ -116,9 +121,12 @@ class Find extends Component {
     }
 
     showStores = () => {
-      return this.state.stores.map((store, index) => {
-        return <option value={index}>{store.name}</option>
-      })
+      if (this.state.stores !== undefined){
+        return this.state.stores.map((store, index) => {
+          return <option value={index}>{store.name}</option>
+        })
+      }
+
     }
 
     getStores = (event) => {
@@ -162,7 +170,7 @@ class Find extends Component {
           'Authorization': 'Bearer ' + jwt
         }
       })
-      .then(this.props.setFind(undefined))
+      .then(this.props.removeFind(this.props.find))
     }
 
     changingForm = (event) => {
@@ -258,7 +266,7 @@ class Find extends Component {
         <div className="col justify-content-center">
           <div className="lrg-poloroid">
             <img src={this.props.find.photo} alt="find" className="lrg-poloroid-img"/>
-              <span className="lit">{this.isLiked.toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}><img src={liked} alt="liked" /></span> : <span onClick={() => this.likeFind(this.props.find.id)}><img src={unliked} alt='liked' /></span>}</span>
+              <span className="lit">{this.isLiked(this.props.find.id).toString() === "true" ? <span role="img" alt="liked" onClick={() => this.unlikeFind(this.props.find.id)}><img src={liked} alt="liked" /></span> : <span onClick={() => this.likeFind(this.props.find.id)}><img src={unliked} alt='liked' /></span>}</span>
           </div>
         </div>
         <div className="col lrg-info">

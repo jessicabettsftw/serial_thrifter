@@ -20,17 +20,12 @@ class Signup extends Component {
     let username = event.target.elements['username'].value
     let email = event.target.elements['email'].value
     let password = event.target.elements['password'].value
-    //let image = event.target.elements['photo'].value
+    let image = event.target.elements['image'].value
 
     console.log(username)
     console.log(email)
     console.log(password)
     //sconsole.log(image)
-    let file = event.target.elements['photo'].files[0]
-    console.log(file.name)
-    console.log(file)
-    this.getBase64(file)
-    .then( myfile => {
     let url = "http://localhost:3000/users"
     fetch( url, {
       method: "POST",
@@ -43,8 +38,7 @@ class Signup extends Component {
           "username": username,
           "email": email,
           "password": password,
-          "file": myfile,
-          "name": file.name
+          "image": image
         }
       })})
       .then( res => res.json())
@@ -56,7 +50,6 @@ class Signup extends Component {
           this.props.setUser(data.user.users)
         }
       })
-    })
   }
 
   render(){
@@ -79,8 +72,8 @@ class Signup extends Component {
             <input name="password" type="password" className="form-control" placeholder="Password" required/>
           </div>
           <div className="form-group">
-            <label for="exampleInputEmail1">Photo</label><br></br>
-            <input type="file" name="photo" id="photoInput" placeholder="enter photo url" required/>
+            <label for="exampleInputEmail1">Image</label><br></br>
+            <input type="text" name="image" id="imageInput" placeholder="Enter Image Url" required/>
           </div>
           <button type="submit" className="styledButton btn btn-primary">Submit</button>
         </form>

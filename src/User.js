@@ -5,22 +5,17 @@ import FindPoloroid from "./FindPoloroid"
 class User extends Component {
   constructor(props){
     super(props)
-    console.log(this.props)
+  //  console.log(this.props)
     if (this.props.user !== undefined){
       this.state = {
         display: "finds",
         userDisplay: "show",
-        myFinds: [],
-        myLikedFinds: [],
+        myFinds: this.props.myFinds,
+        myLikedFinds: this.props.myLikedFinds,
         zip: this.props.user.zip,
         bio: this.props.user.bio,
         image: this.props.user.image
       }
-    }
-
-    if (this.props.user !== undefined) {
-      this.getFinds()
-      this.getLikedFinds()
     }
   }
 
@@ -34,38 +29,10 @@ class User extends Component {
     this.setState({userDisplay: "edit"})
   }
 
-  getFinds = () => {
-    let jwt = localStorage.getItem('jwt')
-    let url = `http://localhost:3000/finds/user/${this.props.user.id}`
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + jwt
-      }})
-    .then(res => res.json())
-    .then(data => {
-      //console.log(data)
-      this.setState({myFinds: data.finds})
-    })
-  }
 
-  getLikedFinds = () => {
-    let jwt = localStorage.getItem('jwt')
-    let url = `http://localhost:3000/likes/finds/${this.props.user.id}`;
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + jwt
-      }})
-    .then(res => res.json())
-    .then(data => {
-      this.setState({myLikedFinds: data.likes})
-    })
-
-  }
 
   likeFind = (findId) => {
-    console.log("liking")
+    //console.log("liking")
     if (this.isLiked(findId) === false){
       let jwt = localStorage.getItem('jwt')
       let url = "http://localhost:3000/likes"
@@ -159,7 +126,7 @@ class User extends Component {
             </div>
             <div className="form-group">
               <label >Image</label>
-              <input onChange={(event) => this.changingForm(event)} type="file" name="image" id="imageInput" placeholder="Enter Photo URL" value={this.state.image} required/>
+              <input onChange={(event) => this.changingForm(event)} type="text" name="image" id="imageInput" placeholder="Enter Photo URL" value={this.state.image} required/>
             </div>
             <button type="submit" className="btn btn-primary">Save</button>
           </form>
@@ -180,7 +147,7 @@ class User extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     let bio = event.target.elements['bio'].value
-    //let image = event.target.elements['image'].value
+    let image = event.target.elements['image'].value
     let zip = event.target.elements['zip'].value
 
     // console.log(bio)
@@ -188,31 +155,24 @@ class User extends Component {
     // console.log(password)
     // console.log(image)
     // console.log(zip)
-    let file = event.target.elements['image'].files[0]
-    console.log(file.name)
-    console.log(file)
-    this.getBase64(file)
-    .then( myfile => {
-      let jwt = localStorage.getItem('jwt')
-      let url = `http://localhost:3000/users/${this.props.user.id}`
-      fetch( url, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer ' + jwt
-        },
-        body: JSON.stringify({
-          "bio": bio,
-          "image": myfile,
-          "zip": zip,
-          "name": file.name
-        })})
-        .then( res => res.json())
-        .then(data => {
-          console.log(data)
-          this.props.setUser(data)
-        })
-    })
+    let jwt = localStorage.getItem('jwt')
+    let url = `http://localhost:3000/users/${this.props.user.id}`
+    fetch( url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + jwt
+      },
+      body: JSON.stringify({
+        "bio": bio,
+        "image": image,
+        "zip": zip
+      })})
+      .then( res => res.json())
+      .then(data => {
+      //  console.log(data)
+        this.props.setUser(data)
+      })
   }
 
   changeDisplay = (display) => {
