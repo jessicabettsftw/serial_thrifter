@@ -18,7 +18,7 @@ class Login extends Component {
     // console.log(username)
     // console.log(email)
     // console.log(password)
-    let url = "http://localhost:3000/login"
+    let url = "https://serialthrifterbackend.herokuapp.com/login"
     fetch( url, {
       method: "POST",
       headers: {

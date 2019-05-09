@@ -26,7 +26,7 @@ class Signup extends Component {
     console.log(email)
     console.log(password)
     //sconsole.log(image)
-    let url = "http://localhost:3000/users"
+    let url = "https://serialthrifterbackend.herokuapp.com/users"
     fetch( url, {
       method: "POST",
       headers: {
