@@ -75,7 +75,7 @@ class Finds extends Component {
 
   getStores = () => {
     let jwt = localStorage.getItem('jwt')
-    let url = "http://localhost:3000/stores"
+    let url = "https://serialthrifterbackend.herokuapp.com/stores"
     fetch(url, {
       method: 'GET',
       headers: {
@@ -116,7 +116,7 @@ class Finds extends Component {
     // debugger;
     if (this.isLiked(findId) === false){
       let jwt = localStorage.getItem('jwt')
-      let url = "http://localhost:3000/likes"
+      let url = "https://serialthrifterbackend.herokuapp.com/likes"
       fetch(url, {
         method: "POST",
         headers: {
@@ -138,7 +138,7 @@ class Finds extends Component {
     unlikeFind = (findId) => {
       if (this.isLiked(findId)){
         let jwt = localStorage.getItem('jwt')
-        let url = `http://localhost:3000/likes/user/${this.props.user.id}/find/${findId}`
+        let url = `https://serialthrifterbackend.herokuapp.com/likes/user/${this.props.user.id}/find/${findId}`
         fetch(url, {
           method: "DELETE",
           headers: {
