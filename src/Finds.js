@@ -92,9 +92,10 @@ class Finds extends Component {
         //console.log(find.id)
         let store = this.state.stores[find.store_id]
         if (store !== undefined){
-          //console.log("my zip", myZip)
-          //console.log("store zip", )
+          console.log("my zip", myZip)
+          console.log("store zip", )
           if (store.zip === myZip){
+            console.log("yes")
             return find
           }
         }

@@ -28,7 +28,7 @@ class UploadFind extends Component {
     let description = event.target.elements['description'].value
     //let city = event.target.elements['city'].value
     let store = this.state.selectedStore
-    console.log(price)
+    console.log(price.type)
     console.log(brand)
     console.log(description)
     console.log(store)
@@ -88,7 +88,7 @@ class UploadFind extends Component {
               'Authorization': 'Bearer ' + jwt
             },
             body: JSON.stringify({
-              'price': parseInt(price),
+              'price': price,
               'brand': brand,
               'description': description,
               'photo': photo,

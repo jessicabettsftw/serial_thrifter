@@ -184,12 +184,12 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(data => {
-      this.setState({selectedFind: data, selectedUser: undefined})
+      this.setState({selectedFind: data, selectedUser: undefined, selectedStore: undefined})
     })
   }
 
   setSelectedUser = (user) => {
-    this.setState({selectedUser: user, selectedFind: undefined})
+    this.setState({selectedUser: user, selectedFind: undefined, selectedStore: undefined})
   }
 
   setUser = (user) => {
@@ -199,7 +199,7 @@ class App extends Component {
 
   setStore = (store) => {
     console.log(store)
-    this.setState({selectedStore: store})
+    this.setState({selectedStore: store, selectedFind: undefined, selectedUser: undefined})
   }
 
   setFind = (find) => {
