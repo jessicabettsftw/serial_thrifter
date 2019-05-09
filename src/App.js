@@ -35,6 +35,11 @@ class App extends Component {
     }
   }
 
+  signOut = () => {
+    localStorage.setItem('jwt', undefined)
+    this.setState({user: undefined})
+  }
+
   getFinds = () => {
     console.log("getting finds", this.state.finds)
     let url = "http://localhost:3000/finds"
