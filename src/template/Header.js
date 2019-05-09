@@ -9,6 +9,7 @@ const Header = props => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           {props.user ?
           <div className="navbar-nav links">
+            <Link className="nav-item nav-link" to='/stores'>Stores</Link>
             <Link className="nav-item nav-link" to='/finds'>Finds</Link>
             <Link className="nav-item nav-link" to='/upload-find'>Upload Find</Link>
             <Link className="nav-item nav-link" exact to='/profiles'>Users</Link>
