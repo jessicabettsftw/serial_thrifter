@@ -8,6 +8,7 @@ import UploadFind from "./UploadFind";
 import Find from "./Find";
 import Home from "./Home";
 import User from "./User";
+import Store from "./Store";
 import Profiles from "./Profiles";
 import Profile from "./Profile";
 import Photos from "./Photos";
@@ -22,6 +23,7 @@ class App extends Component {
       likes: undefined,
       selectedFind: undefined,
       selectedUser: undefined,
+      selectedStore: undefined,
       myFinds: []
     }
     this.getFinds()
@@ -53,7 +55,6 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(data => {
-      //console.log(data)
       this.setState({
         finds: data.finds
       })
@@ -196,6 +197,11 @@ class App extends Component {
     this.setState({user: user})
   }
 
+  setStore = (store) => {
+    console.log(store)
+    this.setState({selectedStore: store})
+  }
+
   setFind = (find) => {
     console.log(find)
     this.setState({selectedFind: find})
@@ -213,8 +219,9 @@ class App extends Component {
               <Route path="/signup" component={() => <Signup user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/login" component={() => <Login user={this.state.user} setUser={this.setUser}/>}/>
               <Route path="/stores" component={() => <GoogleMap selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
+              <Route path="/store" component={() => <Store selectedStore={this.state.selectedStore}/>}/>
               <Route path="/finds" component={() => <Finds finds={this.state.finds} clearSelects={this.clearSelects} selectFind={(id) => this.selectFind(id)}  selectedFind={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} likes={this.state.likes} />}/>
-              <Route path="/find" component={() => <Find clearFind={this.clearFind} removeFind={this.removeFind} setFind={this.setFind} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser} user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
+              <Route path="/find" component={() => <Find setStore={this.setStore} selectedStore={this.state.selectedStore} clearFind={this.clearFind} removeFind={this.removeFind} setFind={this.setFind} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser} user={this.state.user} likes={this.state.likes} find={this.state.selectedFind} addLike={this.addLike} removeLike={this.removeLike} />}/>
               <Route path="/upload-find" component={() => <UploadFind addFind={this.addFind} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} user={this.state.user}/>}/>
               <Route path="/user" component={() => <User myLikedFinds={this.state.myLikedFinds} myFinds={this.state.myFinds} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} clearSelects={this.clearSelects} setUser={this.setUser} user={this.state.user} likes={this.state.likes} selectFind={(id) => this.selectFind(id)} selectedFind={this.state.selectedFind} selectedUser={this.state.selectedUser} addLike={this.addLike} removeLike={this.removeLike} />}/>
               <Route path="/profiles" component={() => <Profiles user={this.state.user} selectedUser={this.state.selectedUser} setSelectedUser={this.setSelectedUser}/>}/>

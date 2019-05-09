@@ -200,7 +200,7 @@ class Find extends Component {
               <p>Brand: {this.props.find.brand} </p>
               <p>Desc: {this.props.find.description}</p>
               <p>Price: ${this.props.find.price}</p>
-              <p>Store: {this.state.store.name}</p>
+              <p>Store: <span id="store-link" onClick={() => this.props.setStore(this.state.store)}>{this.state.store.name}</span> </p>
               <p></p>
               {this.displayEdit()}
             </div>
@@ -267,7 +267,7 @@ class Find extends Component {
 
   render(){
     return (this.props.selectedUser !== undefined)? (<Redirect to="/profile" />)
-  :( (this.props.find === undefined)? (<Redirect to="/finds" />): (
+  :( (this.props.selectedStore !== undefined) ? <Redirect to="/store" /> : (this.props.find === undefined)? (<Redirect to="/finds" />): (
       <div id="find" className="row justify-content-center">
         <div className="col justify-content-center">
           <div className="lrg-poloroid">
